@@ -104,7 +104,7 @@ local function TDAH_fake_script() -- MainHub.Animate
 	
 	local LOADgoal = {}
 	LOADgoal.Size = UDim2.new(0, 280, 0, 6)
-	local twInfoLOAD = TweenInfo.new(2, Enum.EasingStyle.Linear)
+	local twInfoLOAD = TweenInfo.new(9, Enum.EasingStyle.Linear)
 	local tweenLOAD = tw:Create(purpleLine, twInfoLOAD, LOADgoal)
 	
 	
@@ -120,7 +120,7 @@ local function TDAH_fake_script() -- MainHub.Animate
 		LoadingTXT.Visible = true
 		purpleLine.Parent.Visible = true
 		purpleLine.Visible = true
-		for i = 0, 1 do
+		for i = 0, 8 do
 			if LoadingTXT.Text == "Loading..." then LoadingTXT.Text = "Loading" end
 			LoadingTXT.Text = LoadingTXT.Text.."."
 			task.wait(1)
