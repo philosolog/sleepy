@@ -1,6 +1,6 @@
 local ver = "1"
 
-local andromeda = {
+local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
     end,
