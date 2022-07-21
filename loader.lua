@@ -87,9 +87,9 @@ local function TDAH_fake_script() -- MainHub.Animate
 	local MainFrame = script.Parent.MainFrame
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.new(0, 0, 0, 0)
-	local sleepyIMG = MainFrame.sleepyIMG
-	sleepyIMG.Position = UDim2.new(0.5, 0, 0.5, 0)
-	sleepyIMG.Visible = false
+	local sleepyImageLabel = MainFrame.sleepyImageLabel
+	sleepyImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+	sleepyImageLabel.Visible = false
 	
 	local LoadingTXT = MainFrame.LoadingTXT
 	LoadingTXT.Text = "Loading"
