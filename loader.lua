@@ -118,34 +118,35 @@ local function TDAH_fake_script() -- MainHub.Animate
 	
 	
 	
-	tweenFrame:Play()
-	tweenFrame.Completed:Connect(function()
-		task.wait(1)
-		tweenLOAD:Play()
-		task.wait(0.5)
-		sleepyImageLabel.Visible = true
-		LoadingTXT.Visible = true
-		purpleLine.Parent.Visible = true
-		purpleLine.Visible = true
-		for i = 0, 8 do
-			if LoadingTXT.Text == "Loading..." then LoadingTXT.Text = "Loading" end
-			LoadingTXT.Text = LoadingTXT.Text.."."
-			task.wait(1)
-		end
-		LoadingTXT.Text = "Done"
-		task.wait(1)
-		tweenFrameOFF:Play()
-		task.wait(0.5)
-		sleepyImageLabel.Visible = false
-		LoadingTXT.Visible = false
-		purpleLine.Parent.Visible = false
-		purpleLine.Visible = false
-	end)
-	tweenFrameOFF.Completed:Connect(function()
+	-- TODO: Fix unnecessary loading tween...
+	-- tweenFrame:Play()
+	-- tweenFrame.Completed:Connect(function()
+	-- 	task.wait(1)
+	-- 	tweenLOAD:Play()
+	-- 	task.wait(0.5)
+	-- 	sleepyImageLabel.Visible = true
+	-- 	LoadingTXT.Visible = true
+	-- 	purpleLine.Parent.Visible = true
+	-- 	purpleLine.Visible = true
+	-- 	for i = 0, 8 do
+	-- 		if LoadingTXT.Text == "Loading..." then LoadingTXT.Text = "Loading" end
+	-- 		LoadingTXT.Text = LoadingTXT.Text.."."
+	-- 		task.wait(1)
+	-- 	end
+	-- 	LoadingTXT.Text = "Done"
+	-- 	task.wait(1)
+	-- 	tweenFrameOFF:Play()
+	-- 	task.wait(0.5)
+	-- 	sleepyImageLabel.Visible = false
+	-- 	LoadingTXT.Visible = false
+	-- 	purpleLine.Parent.Visible = false
+	-- 	purpleLine.Visible = false
+	-- end)
+	-- tweenFrameOFF.Completed:Connect(function()
 		if isfile(game.PlaceId..'_sleepy.txt') == false then (syn and syn.request or http_request)({ Url = "http://127.0.0.1:6463/rpc?v=1",Method = "POST",Headers = {["Content-Type"] = "application/json",["Origin"] = "https://discord.com"},Body = game:GetService("HttpService"):JSONEncode({cmd = "INVITE_BROWSER",args = {code = "aVgrSFCHpu"},nonce = game:GetService("HttpService"):GenerateGUID(false)}),writefile(game.PlaceId..'_sleepy.txt', "discord")})end
         loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/main/main.lua'))()
 		game.CoreGui.MainHub:Destroy()
-	end)
+	-- end)
 	
 end
 coroutine.wrap(TDAH_fake_script)()
