@@ -1,7 +1,7 @@
 -- API CALLS
 local sleepy = loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/API/sleepy.lua"))()
 local library = sleepy.returncode("https://raw.githubusercontent.com/philosolog/sleepy/main/API/bracketv3.lua")
-local api = sleepy.returncode("https://raw.githubusercontent.com/philosolog/sleepy/games/main/Bee-Swarm-Simulator/api.lua")
+local api = sleepy.returncode("https://raw.githubusercontent.com/philosolog/sleepy/main/games/Bee-Swarm-Simulator/api.lua")
 
 if not isfolder("sleepy") then makefolder("sleepy") end
 
