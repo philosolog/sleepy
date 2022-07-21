@@ -107,9 +107,6 @@ local function TDAH_fake_script() -- MainHub.Animate
 	local twInfoLOAD = TweenInfo.new(9, Enum.EasingStyle.Linear)
 	local tweenLOAD = tw:Create(purpleLine, twInfoLOAD, LOADgoal)
 	
-	
-	
-	-- bump
 	-- TODO: Fix unnecessary loading tween...
 	tweenFrame:Play()
 	tweenFrame.Completed:Connect(function()
