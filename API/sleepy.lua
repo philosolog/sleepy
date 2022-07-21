@@ -1,4 +1,4 @@
-local ver = "1"
+local ver = "2.0.0"
 
 local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this

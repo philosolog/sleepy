@@ -129,6 +129,7 @@ local planterst = {
     planterid = {}
 }
 
+sleepy.log("balls")
 for i,v in next, temptable.blacklist do if v == sleepy.nickname then game.Players.LocalPlayer:Kick("You're blacklisted! Get clapped!") end end
 if temptable.honeystart == 0 then temptable.honeystart = statstable.Totals.Honey end
 
