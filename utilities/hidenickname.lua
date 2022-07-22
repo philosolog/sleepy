@@ -116,7 +116,7 @@ local function scan_and_replace(fast)
         replace(obj)
     end
 end
-function fixchar(game:GetService("Players").LocalPlayer.Character)
+function fixchar(Character)
     if not game:GetService("Players").LocalPlayer.Character then
         return 
     end
