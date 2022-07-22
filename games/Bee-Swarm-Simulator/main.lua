@@ -20,7 +20,7 @@ local hi = false
 -- Script tables
 
 local temptable = {
-    version = "1.0.0",
+    version = "1",
     blackfield = "Ant Field",
     redfields = {},
     bluefields = {},
@@ -29,9 +29,7 @@ local temptable = {
     balloondetected = false,
     puffshroomdetected = false,
     magnitude = 70,
-    blacklist = {
-        "e_mrFluk2281"
-    },
+    blacklist = {},
     running = false,
     configname = "",
     tokenpath = game:GetService("Workspace").Collectibles,
@@ -197,7 +195,7 @@ local sleepy = {
         blue = "Stump Field"
     },
     blacklistedfields = {},
-    killerandromeda = {},
+    killersleepy = {},
     toggles = {
         autofarm = false,
         farmclosestleaf = false,
@@ -248,7 +246,7 @@ local sleepy = {
         godmode = false
     },
     vars = {
-        field = "Ant Field",
+        field = "Mountain Top Field",
         convertat = 100,
         farmspeed = 60,
         prefer = "Tokens",
@@ -271,7 +269,7 @@ local sleepy = {
     }
 }
 
-local defaultandromeda = sleepy
+local defaultsleepy = sleepy
 
 -- functions
 
@@ -647,7 +645,7 @@ function makequests()
     end end end end end
 end
 
-local Config = { WindowName = "🌌  sleepy | "..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
+local Config = { WindowName = "🌙 sleepy | v"..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local hometab = Window:CreateTab("Home")
@@ -657,19 +655,13 @@ local wayptab = Window:CreateTab("Waypoints")
 local misctab = Window:CreateTab("Misc")
 local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
-
 local information = hometab:CreateSection("Information")
-information:CreateLabel("Thanks you for using our script, "..sleepyapi.nickname)
-information:CreateLabel("Script version: "..temptable.version)
+local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
+
 information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
-information:CreateLabel("Place version: "..game.PlaceVersion)
-information:CreateLabel("Script by max0mind, .anon and a10b")
-information:CreateLabel("Special thanks for '🌘 kocmoc'")
-local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
-information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/gGHEDdTvH7") end)
-information:CreateButton("Donation", function() setclipboard("https://qiwi.com/n/MAX0MIND") end)
+information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/aVgrSFCHpu") end)
 
 
 local farmo = farmtab:CreateSection("Farming")
@@ -743,9 +735,7 @@ misco:CreateButton("Export Stats Table", function() local StatCache = require(ga
 
 
 local extras = extrtab:CreateSection("Extras")
-extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/nicknamespoofer.lua"))()end)
-extras:CreateButton("Boost FPS", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/fpsboost.lua"))()end)
-extras:CreateButton("Destroy Decals", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/destroydecals.lua"))()end)
+extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
 extras:CreateTextBox("Glider Speed", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Speed = Value setupvalue(st, st[1]'Glider', glidersTable) end)
 extras:CreateTextBox("Glider Float", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Float = Value setupvalue(st, st[1]'Glider', glidersTable) end)
 extras:CreateButton("Invisibility", function(State) sleepyapi.teleport(CFrame.new(0,0,0)) wait(1) if game.Players.LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game.Players.LocalPlayer.Character.LowerTorso.Root:Clone() game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game.Players.LocalPlayer.Character.LowerTorso sleepyapi.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
@@ -787,11 +777,11 @@ local guisettings = setttab:CreateSection("GUI Settings")
 local uitoggle = guisettings:CreateToggle("UI Toggle", nil, function(State) Window:Toggle(State) end) uitoggle:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), function(Key) Config.Keybind = Enum.KeyCode[Key] end) uitoggle:SetState(true)
 guisettings:CreateColorpicker("UI Color", function(Color) Window:ChangeColor(Color) end)
 local themes = guisettings:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name) if Name == "Default" then Window:SetBackground("2151741365") elseif Name == "Hearts" then Window:SetBackground("6073763717") elseif Name == "Abstract" then Window:SetBackground("6073743871") elseif Name == "Hexagon" then Window:SetBackground("6073628839") elseif Name == "Circles" then Window:SetBackground("6071579801") elseif Name == "Lace With Flowers" then Window:SetBackground("6071575925") elseif Name == "Floral" then Window:SetBackground("5553946656") end end)themes:SetOption("Default")
-local andromedas = setttab:CreateSection("Configs")
-andromedas:CreateTextBox("Config Name", 'ex: stumpconfig', false, function(Value) temptable.configname = Value end)
-andromedas:CreateButton("Load Config", function() sleepy = game:service'HttpService':JSONDecode(readfile("sleepy/BSS_"..temptable.configname..".json")) end)
-andromedas:CreateButton("Save Config", function() writefile("sleepy/BSS_"..temptable.configname..".json",game:service'HttpService':JSONEncode(sleepy)) end)
-andromedas:CreateButton("Reset Config", function() sleepy = defaultandromeda end)
+local sleepys = setttab:CreateSection("Configs")
+sleepys:CreateTextBox("Config Name", 'ex: stumpconfig', false, function(Value) temptable.configname = Value end)
+sleepys:CreateButton("Load Config", function() sleepy = game:service'HttpService':JSONDecode(readfile("sleepy/BSS_"..temptable.configname..".json")) end)
+sleepys:CreateButton("Save Config", function() writefile("sleepy/BSS_"..temptable.configname..".json",game:service'HttpService':JSONEncode(sleepy)) end)
+sleepys:CreateButton("Reset Config", function() sleepy = defaultsleepy end)
 local fieldsettings = setttab:CreateSection("Fields Settings")
 fieldsettings:CreateDropdown("Best White Field", temptable.whitefields, function(Option) sleepy.bestfields.white = Option end)
 fieldsettings:CreateDropdown("Best Red Field", temptable.redfields, function(Option) sleepy.bestfields.red = Option end)
