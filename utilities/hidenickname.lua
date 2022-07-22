@@ -116,21 +116,21 @@ local function scan_and_replace(fast)
         replace(obj)
     end
 end
-function fixchar(Character)
-    if not Character then
+function fixchar(game:GetService("Players").LocalPlayer.Character)
+    if not game:GetService("Players").LocalPlayer.Character then
         return 
     end
 	wait(0.2)
     RunService.RenderStepped:Wait()
     if rename_instances then
-        Character.Name = new_name
+        game:GetService("Players").LocalPlayer.Character.Name = new_name
     end
 	if clear_avatar then
     	Players.LocalPlayer:ClearCharacterAppearance()
 	end
     wait(0.1)
     if flush_body_colors then
-        local bc = Character:FindFirstChildOfClass("BodyColors")
+        local bc = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("BodyColors")
         if bc then
             for _, c in pairs({
                 "HeadColor",
@@ -143,9 +143,9 @@ function fixchar(Character)
                 bc[c] = (typeof(bc[c]) == "BrickColor" and BrickColor.Random()) or bc[c]
             end
         else
-            local h = Character:FindFirstChildOfClass("Humanoid")
+            local h = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
             if h then
-                for _, limb in pairs(Character:GetChildren()) do
+                for _, limb in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
                     if limb:IsA("BasePart") and pcall(h.GetLimb, h, limb) then
                         limb.BrickColor = BrickColor.Random()
                     end
@@ -154,7 +154,7 @@ function fixchar(Character)
         end
     end
 end
-fixchar(Players.LocalPlayer.Character)
+fixchar(Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character)
 Players.LocalPlayer.CharacterAppearanceLoaded:Connect(fixchar)
 Players.LocalPlayer.CharacterAdded:Connect(fixchar)
 if deep_scan then

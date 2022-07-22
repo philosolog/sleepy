@@ -1,5 +1,4 @@
 local ver = "1" -- TODO: GitHub commits.
---local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
@@ -8,16 +7,16 @@ local sleepy = {
         return v1/v2
     end,
     ["humanoidrootpart"] = function()
-        return Character.HumanoidRootPart
+        return game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
     end,
     ["humanoid"] = function() 
-        return Character.Humanoid
+        return game:GetService("Players").LocalPlayer.Character.Humanoid
     end,
     ["tween"] = function(time, pos) -- tween to position by (time) + (cframe)
-        game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Linear), {CFrame = pos}):Play() task.wait(time)
+        game:GetService("TweenService"):Create(game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Linear), {CFrame = pos}):Play() task.wait(time)
     end,
     ["walkTo"] = function(v3) -- walk to position (not pathfinding)
-       Character.Humanoid:MoveTo(v3) 
+       game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(v3) 
     end,
     ["isExist"] = function(obj) -- check for object, if it is exist then returnes true
         if obj ~= nil then
@@ -139,7 +138,7 @@ local sleepy = {
         coroutine.resume(wa)
     end,
     ['getclosestpart'] = function(path, t)
-        local root = Character.HumanoidRootPart
+        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
         if root == nil then return end
         local studs = math.huge
         local part;
@@ -179,7 +178,7 @@ local sleepy = {
         if not magnitude then
             magnitude = math.huge
         end
-        local root = Character.HumanoidRootPart
+        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
         if root == nil then return end
         local size = Vector3.new(math.huge,math.huge,math.huge)
         local part;
@@ -229,7 +228,7 @@ local sleepy = {
         return tostring(st)
     end,
     ['teleport'] = function(cf)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cf
+        game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = cf
     end,
     ['findvalue'] = function(Table, Value)
         if type(Table) == "table" then
@@ -275,8 +274,8 @@ local sleepy = {
     end,
     ['pathfind'] = function(target)
         local PathfindingService = game:GetService("PathfindingService")
-        local Humanoid = game.Players.LocalPlayer.Character.Humanoid
-        local Root = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        local Humanoid = game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.Humanoid
+        local Root = game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         local path = PathfindingService:CreatePath({
             AgentCanJump = true,
             WaypointSpacing = 1
@@ -284,8 +283,8 @@ local sleepy = {
         path:ComputeAsync(Root.Position, target)
         local waypoints = path:GetWaypoints()
         for i, waypoint in ipairs(waypoints) do
-            Character.Humanoid:MoveTo(waypoint.Position)
-            Character.Humanoid.MoveToFinished:wait()
+            game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
+            game:GetService("Players").LocalPlayer.Character.Humanoid.MoveToFinished:wait()
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 Humanoid.Jump = true
             end
@@ -297,7 +296,7 @@ local sleepy = {
             if Closest == nil then
                 Closest = v
             else
-                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude < (Closest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude then
+                if (game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude < (Closest.Position - game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude then
                     Closest = v
                 end
             end
