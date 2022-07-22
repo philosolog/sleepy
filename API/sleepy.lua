@@ -1,4 +1,5 @@
-local ver = "1" -- TODO: GitHub commits.
+local ver = "2.0.0"
+
 local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
