@@ -1,20 +1,8 @@
-
---[[
-
-█████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗██████╗  █████╗ 
-██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗
-███████║██╔██╗ ██║██║  ██║██████╔╝██║   ██║██╔████╔██║█████╗  ██║  ██║███████║
-██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║   ██║██║╚██╔╝██║██╔══╝  ██║  ██║██╔══██║
-██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██████╔╝██║  ██║
-╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝
-                                                                              
-]]--
-
 -- Instances:
 
 local MainHub = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
-local AndromedaImg = Instance.new("ImageLabel")
+local sleepyImg = Instance.new("ImageLabel")
 local LoadingTXT = Instance.new("TextLabel")
 local BorderLoading = Instance.new("Frame")
 local PurpleLine = Instance.new("Frame")
@@ -36,16 +24,16 @@ MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 MainFrame.Size = UDim2.new(0, 2500, 0, 2500)
 MainFrame.ZIndex = 2
 
-AndromedaImg.Name = "AndromedaImg"
-AndromedaImg.Parent = MainFrame
-AndromedaImg.AnchorPoint = Vector2.new(0.5, 0.5)
-AndromedaImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-AndromedaImg.BackgroundTransparency = 1.000
-AndromedaImg.BorderSizePixel = 0
-AndromedaImg.Position = UDim2.new(0.504000008, 0, 0.5, 0)
-AndromedaImg.Size = UDim2.new(0, 250, 0, 250)
-AndromedaImg.ZIndex = 3
-AndromedaImg.Image = "http://www.roblox.com/asset/?id=10190803995"
+sleepyImg.Name = "sleepyImg"
+sleepyImg.Parent = MainFrame
+sleepyImg.AnchorPoint = Vector2.new(0.5, 0.5)
+sleepyImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+sleepyImg.BackgroundTransparency = 1.000
+sleepyImg.BorderSizePixel = 0
+sleepyImg.Position = UDim2.new(0.504000008, 0, 0.5, 0)
+sleepyImg.Size = UDim2.new(0, 250, 0, 250)
+sleepyImg.ZIndex = 3
+sleepyImg.Image = "http://www.roblox.com/asset/?id=10190803995"
 
 LoadingTXT.Name = "LoadingTXT"
 LoadingTXT.Parent = MainFrame
@@ -99,9 +87,9 @@ local function TDAH_fake_script() -- MainHub.Animate
 	local MainFrame = script.Parent.MainFrame
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.new(0, 0, 0, 0)
-	local AndromedaIMG = MainFrame.AndromedaImg
-	AndromedaIMG.Position = UDim2.new(0.5, 0, 0.5, 0)
-	AndromedaIMG.Visible = false
+	local sleepyIMG = MainFrame.sleepyImg
+	sleepyIMG.Position = UDim2.new(0.5, 0, 0.5, 0)
+	sleepyIMG.Visible = false
 	
 	local LoadingTXT = MainFrame.LoadingTXT
 	LoadingTXT.Text = "Loading"
@@ -135,7 +123,7 @@ local function TDAH_fake_script() -- MainHub.Animate
 		task.wait(1)
 		tweenLOAD:Play()
 		task.wait(0.5)
-		AndromedaIMG.Visible = true
+		sleepyIMG.Visible = true
 		LoadingTXT.Visible = true
 		purpleLine.Parent.Visible = true
 		purpleLine.Visible = true
@@ -148,13 +136,13 @@ local function TDAH_fake_script() -- MainHub.Animate
 		task.wait(1)
 		tweenFrameOFF:Play()
 		task.wait(0.5)
-		AndromedaIMG.Visible = false
+		sleepyIMG.Visible = false
 		LoadingTXT.Visible = false
 		purpleLine.Parent.Visible = false
 		purpleLine.Visible = false
 	end)
 	tweenFrameOFF.Completed:Connect(function()
-		if isfile(game.PlaceId..'_andromeda.txt') == false then (syn and syn.request or http_request)({ Url = "http://127.0.0.1:6463/rpc?v=1",Method = "POST",Headers = {["Content-Type"] = "application/json",["Origin"] = "https://discord.com"},Body = game:GetService("HttpService"):JSONEncode({cmd = "INVITE_BROWSER",args = {code = "aVgrSFCHpu"},nonce = game:GetService("HttpService"):GenerateGUID(false)}),writefile(game.PlaceId..'_andromeda.txt', "discord")})end
+		if isfile(game.PlaceId..'_sleepy.txt') == false then (syn and syn.request or http_request)({ Url = "http://127.0.0.1:6463/rpc?v=1",Method = "POST",Headers = {["Content-Type"] = "application/json",["Origin"] = "https://discord.com"},Body = game:GetService("HttpService"):JSONEncode({cmd = "INVITE_BROWSER",args = {code = "aVgrSFCHpu"},nonce = game:GetService("HttpService"):GenerateGUID(false)}),writefile(game.PlaceId..'_sleepy.txt', "discord")})end
         loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/main/main.lua'))()
 		game.CoreGui.MainHub:Destroy()
 	end)

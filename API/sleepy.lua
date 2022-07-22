@@ -1,30 +1,6 @@
---[[
+local ver = "1" -- TODO: GitHub commits.
 
-█████╗ ███╗   ██╗██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗██████╗  █████╗ 
-██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗
-███████║██╔██╗ ██║██║  ██║██████╔╝██║   ██║██╔████╔██║█████╗  ██║  ██║███████║
-██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║   ██║██║╚██╔╝██║██╔══╝  ██║  ██║██╔══██║
-██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██████╔╝██║  ██║
-╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝
-                                                                              
-
-                                                                                              
-    You can suggest everything in discord server
-    https://discord.gg/gGHEDdTvH7
-
-                                                                    
-]]
-
---[[
-    Made by:
-        .anon
-        davidshavrov
-        max0mind
-]]
-
-local ver = "2.0.0"
-
-local andromeda = {
+local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
     end,
@@ -398,4 +374,4 @@ local andromeda = {
     end
 }
 
-return andromeda
+return sleepy
