@@ -71,81 +71,10 @@ UICorner.CornerRadius = UDim.new(100, 0)
 UICorner.Parent = BorderLoading
 
 -- Scripts:
-
 local function TDAH_fake_script() -- MainHub.Animate 
-	local script = Instance.new('LocalScript', MainHub)
-
-	local tw = game:GetService("TweenService")
-	
-	
-	
-	
-	
-	
-	
-	
-	local MainFrame = script.Parent.MainFrame
-	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-	MainFrame.Size = UDim2.new(0, 0, 0, 0)
-	local sleepyIMG = MainFrame.sleepyImg
-	sleepyIMG.Position = UDim2.new(0.5, 0, 0.5, 0)
-	sleepyIMG.Visible = false
-	
-	local LoadingTXT = MainFrame.LoadingTXT
-	LoadingTXT.Text = "Loading"
-	LoadingTXT.Position = UDim2.new(0.47, 0,0.545, 0)
-	LoadingTXT.Visible = false
-	
-	local purpleLine = MainFrame.BorderLoading.PurpleLine
-	purpleLine.Size = UDim2.new(0,0,0,6)
-	purpleLine.Position = UDim2.new(purpleLine.Parent.Position)
-	purpleLine.Visible = false
-	
-	purpleLine.Parent.Visible = false
-	
-	local FrameGoal = {}
-	FrameGoal.Position = UDim2.new(0.5, 0, 0.5, 0)
-	FrameGoal.Size = UDim2.new(0, 2500, 0, 2500)
-	local twInfoFrame = TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
-	local tweenFrame = tw:Create(MainFrame, twInfoFrame, FrameGoal)
-	local tweenFrameOFF = tw:Create(MainFrame, twInfoFrame, {Size = UDim2.new(0,0,0,0)})
-	
-	local LOADgoal = {}
-	LOADgoal.Size = UDim2.new(0, 280, 0, 6)
-	local twInfoLOAD = TweenInfo.new(2, Enum.EasingStyle.Linear)
-	local tweenLOAD = tw:Create(purpleLine, twInfoLOAD, LOADgoal)
-	
-	
-	
-	
-	tweenFrame:Play()
-	tweenFrame.Completed:Connect(function()
-		task.wait(1)
-		tweenLOAD:Play()
-		task.wait(0.5)
-		sleepyIMG.Visible = true
-		LoadingTXT.Visible = true
-		purpleLine.Parent.Visible = true
-		purpleLine.Visible = true
-		for i = 0, 1 do
-			if LoadingTXT.Text == "Loading..." then LoadingTXT.Text = "Loading" end
-			LoadingTXT.Text = LoadingTXT.Text.."."
-			task.wait(1)
-		end
-		LoadingTXT.Text = "Done"
-		task.wait(1)
-		tweenFrameOFF:Play()
-		task.wait(0.5)
-		sleepyIMG.Visible = false
-		LoadingTXT.Visible = false
-		purpleLine.Parent.Visible = false
-		purpleLine.Visible = false
-	end)
-	tweenFrameOFF.Completed:Connect(function()
-		if isfile(game.PlaceId..'_sleepy.txt') == false then (syn and syn.request or http_request)({ Url = "http://127.0.0.1:6463/rpc?v=1",Method = "POST",Headers = {["Content-Type"] = "application/json",["Origin"] = "https://discord.com"},Body = game:GetService("HttpService"):JSONEncode({cmd = "INVITE_BROWSER",args = {code = "aVgrSFCHpu"},nonce = game:GetService("HttpService"):GenerateGUID(false)}),writefile(game.PlaceId..'_sleepy.txt', "discord")})end
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/main/main.lua'))()
-		game.CoreGui.MainHub:Destroy()
-	end)
-	
+	-- TODO: sleepy hub loader
+	if isfile(game.PlaceId..'_sleepy.txt') == false then (syn and syn.request or http_request)({ Url = "http://127.0.0.1:6463/rpc?v=1",Method = "POST",Headers = {["Content-Type"] = "application/json",["Origin"] = "https://discord.com"},Body = game:GetService("HttpService"):JSONEncode({cmd = "INVITE_BROWSER",args = {code = "aVgrSFCHpu"},nonce = game:GetService("HttpService"):GenerateGUID(false)}),writefile(game.PlaceId..'_sleepy.txt', "discord")})end
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/main/main.lua'))()
+	game.CoreGui.MainHub:Destroy()
 end
 coroutine.wrap(TDAH_fake_script)()
