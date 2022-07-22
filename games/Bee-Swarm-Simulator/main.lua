@@ -246,7 +246,7 @@ local sleepy = {
         godmode = false
     },
     vars = {
-        field = "Mountain Top Field",
+        field = "Ant Field",
         convertat = 100,
         farmspeed = 60,
         prefer = "Tokens",
