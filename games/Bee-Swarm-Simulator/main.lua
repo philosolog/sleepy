@@ -3,7 +3,7 @@ local sleepy = loadstring(game:HttpGet("https://raw.githubusercontent.com/philos
 local library = sleepy.returncode("https://raw.githubusercontent.com/philosolog/sleepy/main/API/bracketv3.lua")
 local bssapi = sleepy.returncode("https://raw.githubusercontent.com/philosolog/sleepy/main/games/Bee-Swarm-Simulator/bssapi.lua")
 
-if not isfolder("sleepy") then makefolder("sleepy") end
+if not isfolder("andromeda") then makefolder("andromeda") end
 
 
 -- Script temporary variables
@@ -20,7 +20,7 @@ local hi = false
 -- Script tables
 
 local temptable = {
-    version = "1",
+    version = "1.0.0",
     blackfield = "Ant Field",
     redfields = {},
     bluefields = {},
@@ -29,7 +29,9 @@ local temptable = {
     balloondetected = false,
     puffshroomdetected = false,
     magnitude = 70,
-    blacklist = {},
+    blacklist = {
+        "e_mrFluk2281"
+    },
     running = false,
     configname = "",
     tokenpath = game:GetService("Workspace").Collectibles,
@@ -186,7 +188,7 @@ antpart.CanCollide = false
 
 -- config
 
-local sleepy = {
+local andromeda = {
     rares = {},
     priority = {},
     bestfields = {
@@ -195,7 +197,7 @@ local sleepy = {
         blue = "Stump Field"
     },
     blacklistedfields = {},
-    killersleepy = {},
+    killerandromeda = {},
     toggles = {
         autofarm = false,
         farmclosestleaf = false,
@@ -269,51 +271,51 @@ local sleepy = {
     }
 }
 
-local defaultsleepy = sleepy
+local defaultandromeda = andromeda
 
 -- functions
 
 function statsget() local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() return stats end
 function farm(trying)
-    if sleepy.toggles.loopfarmspeed then game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed end
+    if andromeda.toggles.loopfarmspeed then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = andromeda.vars.farmspeed end
     sleepy.humanoid():MoveTo(trying.Position) 
     repeat task.wait() until (trying.Position-sleepy.humanoidrootpart().Position).magnitude <=4 or not IsToken(trying) or not temptable.running
 end
 
 function disableall()
-    if sleepy.toggles.autofarm and not temptable.converting then
+    if andromeda.toggles.autofarm and not temptable.converting then
         temptable.cache.autofarm = true
-        sleepy.toggles.autofarm = false
+        andromeda.toggles.autofarm = false
     end
-    if sleepy.toggles.killmondo and not temptable.started.mondo then
-        sleepy.toggles.killmondo = false
+    if andromeda.toggles.killmondo and not temptable.started.mondo then
+        andromeda.toggles.killmondo = false
         temptable.cache.killmondo = true
     end
-    if sleepy.toggles.killvicious and not temptable.started.vicious then
-        sleepy.toggles.killvicious = false
+    if andromeda.toggles.killvicious and not temptable.started.vicious then
+        andromeda.toggles.killvicious = false
         temptable.cache.vicious = true
     end
-    if sleepy.toggles.killwindy and not temptable.started.windy then
-        sleepy.toggles.killwindy = false
+    if andromeda.toggles.killwindy and not temptable.started.windy then
+        andromeda.toggles.killwindy = false
         temptable.cache.windy = true
     end
 end
 
 function enableall()
     if temptable.cache.autofarm then
-        sleepy.toggles.autofarm = true
+        andromeda.toggles.autofarm = true
         temptable.cache.autofarm = false
     end
     if temptable.cache.killmondo then
-        sleepy.toggles.killmondo = true
+        andromeda.toggles.killmondo = true
         temptable.cache.killmondo = false
     end
     if temptable.cache.vicious then
-        sleepy.toggles.killvicious = true
+        andromeda.toggles.killvicious = true
         temptable.cache.vicious = false
     end
     if temptable.cache.windy then
-        sleepy.toggles.killwindy = true
+        andromeda.toggles.killwindy = true
         temptable.cache.windy = false
     end
 end
@@ -324,7 +326,7 @@ function gettoken(v3)
     end
     task.wait()
     for e,r in next, game:GetService("Workspace").Collectibles:GetChildren() do
-        if tonumber((r.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and (v3-r.Position).magnitude <= temptable.magnitude then
+        if tonumber((r.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and (v3-r.Position).magnitude <= temptable.magnitude then
             farm(r)
         end
     end
@@ -420,7 +422,7 @@ function farmant()
     temptable.oldtool = rtsg()['EquippedCollector']
     game.ReplicatedStorage.Events.ItemPackageEvent:InvokeServer("Equip",{["Mute"] = true,["Type"] = "Spark Staff",["Category"] = "Collector"})
     game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge")
-    sleepy.toggles.autodig = true
+    andromeda.toggles.autodig = true
     acl = CFrame.new(127, 48, 547)
     acr = CFrame.new(65, 48, 534)
     task.wait(1)
@@ -470,8 +472,8 @@ function getprioritytokens()
         for e,r in next, game:GetService("Workspace").Collectibles:GetChildren() do
             if r:FindFirstChildOfClass("Decal") then
                 local aaaaaaaa = string.split(r:FindFirstChildOfClass("Decal").Texture, 'rbxassetid://')[2]
-                if aaaaaaaa ~= nil and sleepy.findvalue(sleepy.priority, aaaaaaaa) then
-                    if r.Name == game.Players.LocalPlayer.Name and not r:FindFirstChild("got it") or tonumber((r.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and not r:FindFirstChild("got it") then
+                if aaaaaaaa ~= nil and sleepy.findvalue(andromeda.priority, aaaaaaaa) then
+                    if r.Name == game.Players.LocalPlayer.Name and not r:FindFirstChild("got it") or tonumber((r.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and not r:FindFirstChild("got it") then
                         farm(r) local val = Instance.new("IntValue",r) val.Name = "got it" break
                     end
                 end
@@ -505,10 +507,10 @@ end
 function converthoney()
     task.wait(0)
     if temptable.converting then
-        if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then
+        if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then
             sleepy.tween(1, game:GetService("Players").LocalPlayer.SpawnPos.Value * CFrame.fromEulerAnglesXYZ(0, 110, 0) + Vector3.new(0, 0, 9))
             task.wait(.9)
-            if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer("ToggleHoneyMaking") end
+            if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer("ToggleHoneyMaking") end
             task.wait(.1)
         end
     end
@@ -516,7 +518,7 @@ end
 
 function closestleaf()
     for i,v in next, game.Workspace.Flowers:GetChildren() do
-        if temptable.running == false and tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if temptable.running == false and tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -525,7 +527,7 @@ end
 
 function getbubble()
     for i,v in next, game.workspace.Particles:GetChildren() do
-        if string.find(v.Name, "Bubble") and temptable.running == false and tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if string.find(v.Name, "Bubble") and temptable.running == false and tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -536,7 +538,7 @@ function getballoons()
     for i,v in next, game:GetService("Workspace").Balloons.FieldBalloons:GetChildren() do
         if v:FindFirstChild("BalloonRoot") and v:FindFirstChild("PlayerName") then
             if v:FindFirstChild("PlayerName").Value == game.Players.LocalPlayer.Name then
-                if tonumber((v.BalloonRoot.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+                if tonumber((v.BalloonRoot.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
                     sleepy.walkTo(v.BalloonRoot.Position)
                 end
             end
@@ -546,10 +548,10 @@ end
 
 function getflower()
     flowerrrr = flowertable[math.random(#flowertable)]
-    if tonumber((flowerrrr-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and tonumber((flowerrrr-fieldposition).magnitude) <= temptable.magnitude/1.4 then 
+    if tonumber((flowerrrr-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and tonumber((flowerrrr-fieldposition).magnitude) <= temptable.magnitude/1.4 then 
         if temptable.running == false then 
-            if sleepy.toggles.loopfarmspeed then 
-                game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed 
+            if andromeda.toggles.loopfarmspeed then 
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = andromeda.vars.farmspeed 
             end 
             sleepy.walkTo(flowerrrr) 
         end 
@@ -559,7 +561,7 @@ end
 function getcloud()
     for i,v in next, game:GetService("Workspace").Clouds:GetChildren() do
         e = v:FindFirstChild("Plane")
-        if e and tonumber((e.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if e and tonumber((e.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             sleepy.walkTo(e.Position)
         end
     end
@@ -578,7 +580,7 @@ end
 function getfuzzy()
     pcall(function()
         for i,v in next, game.workspace.Particles:GetChildren() do
-            if v.Name == "DustBunnyInstance" and temptable.running == false and tonumber((v.Plane.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+            if v.Name == "DustBunnyInstance" and temptable.running == false and tonumber((v.Plane.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
                 if v:FindFirstChild("Plane") then
                     farm(v:FindFirstChild("Plane"))
                     break
@@ -590,7 +592,7 @@ end
 
 function getflame()
     for i,v in next, game:GetService("Workspace").PlayerFlames:GetChildren() do
-        if tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -600,8 +602,8 @@ end
 function avoidmob()
     for i,v in next, game:GetService("Workspace").Monsters:GetChildren() do
         if v:FindFirstChild("Head") then
-            if (v.Head.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 and sleepy.humanoid():GetState() ~= Enum.HumanoidStateType.Freefall then
-                game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+            if (v.Head.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 and sleepy.humanoid():GetState() ~= Enum.HumanoidStateType.Freefall then
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
             end
         end
     end
@@ -627,8 +629,8 @@ function makequests()
             image = v.Platform.AlertPos.AlertGui.ImageLabel
             button = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.ActivateButton.MouseButton1Click
             if image.ImageTransparency == 0 then
-                if sleepy.toggles.tptonpc then
-                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
+                if andromeda.toggles.tptonpc then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
                     task.wait(1)
                 else
                     sleepy.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
@@ -645,7 +647,7 @@ function makequests()
     end end end end end
 end
 
-local Config = { WindowName = "🌙  sleepy | v"..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
+local Config = { WindowName = "🌌  andromeda | "..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local hometab = Window:CreateTab("Home")
@@ -657,76 +659,81 @@ local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
 
 local information = hometab:CreateSection("Information")
+information:CreateLabel("Thanks you for using our script, "..sleepy.nickname)
+information:CreateLabel("Script version: "..temptable.version)
 information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
-
+information:CreateLabel("Place version: "..game.PlaceVersion)
+information:CreateLabel("Script by max0mind, .anon and a10b")
+information:CreateLabel("Special thanks for '🌘 kocmoc'")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
-information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/aVgrSFCHpu") end)
+information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/gGHEDdTvH7") end)
+information:CreateButton("Donation", function() setclipboard("https://qiwi.com/n/MAX0MIND") end)
 
 
 local farmo = farmtab:CreateSection("Farming")
-local fielddropdown = farmo:CreateDropdown("Field", fieldstable, function(String) sleepy.vars.field = String end) fielddropdown:SetOption(fieldstable[1])
-convertatslider = farmo:CreateSlider("Convert At", 0, 100, 100, false, function(Value) sleepy.vars.convertat = Value end)
-local autofarmtoggle = farmo:CreateToggle("Autofarm ⚙", nil, function(State) sleepy.toggles.autofarm = State end) autofarmtoggle:CreateKeybind("U", function(Key) end)
-farmo:CreateToggle("Autodig", nil, function(State) sleepy.toggles.autodig = State end)
-farmo:CreateToggle("Auto Sprinkler", nil, function(State) sleepy.toggles.autosprinkler = State end)
-farmo:CreateToggle("Farm Bubbles", nil, function(State) sleepy.toggles.farmbubbles = State end)
-farmo:CreateToggle("Farm Flames", nil, function(State) sleepy.toggles.farmflame = State end)
-farmo:CreateToggle("Farm Coconuts & Shower", nil, function(State) sleepy.toggles.farmcoco = State end)
-farmo:CreateToggle("Farm Precise Crosshairs", nil, function(State) sleepy.toggles.collectcrosshairs = State end)
-farmo:CreateToggle("Farm Fuzzy Bombs", nil, function(State) sleepy.toggles.farmfuzzy = State end)
-farmo:CreateToggle("Farm Under Balloons", nil, function(State) sleepy.toggles.farmunderballoons = State end)
-farmo:CreateToggle("Farm Under Clouds", nil, function(State) sleepy.toggles.farmclouds = State end)
---farmo:CreateToggle("Farm Closest Leaves", nil, function(State) sleepy.toggles.farmclosestleaf = State end)
+local fielddropdown = farmo:CreateDropdown("Field", fieldstable, function(String) andromeda.vars.field = String end) fielddropdown:SetOption(fieldstable[1])
+convertatslider = farmo:CreateSlider("Convert At", 0, 100, 100, false, function(Value) andromeda.vars.convertat = Value end)
+local autofarmtoggle = farmo:CreateToggle("Autofarm ⚙", nil, function(State) andromeda.toggles.autofarm = State end) autofarmtoggle:CreateKeybind("U", function(Key) end)
+farmo:CreateToggle("Autodig", nil, function(State) andromeda.toggles.autodig = State end)
+farmo:CreateToggle("Auto Sprinkler", nil, function(State) andromeda.toggles.autosprinkler = State end)
+farmo:CreateToggle("Farm Bubbles", nil, function(State) andromeda.toggles.farmbubbles = State end)
+farmo:CreateToggle("Farm Flames", nil, function(State) andromeda.toggles.farmflame = State end)
+farmo:CreateToggle("Farm Coconuts & Shower", nil, function(State) andromeda.toggles.farmcoco = State end)
+farmo:CreateToggle("Farm Precise Crosshairs", nil, function(State) andromeda.toggles.collectcrosshairs = State end)
+farmo:CreateToggle("Farm Fuzzy Bombs", nil, function(State) andromeda.toggles.farmfuzzy = State end)
+farmo:CreateToggle("Farm Under Balloons", nil, function(State) andromeda.toggles.farmunderballoons = State end)
+farmo:CreateToggle("Farm Under Clouds", nil, function(State) andromeda.toggles.farmclouds = State end)
+--farmo:CreateToggle("Farm Closest Leaves", nil, function(State) andromeda.toggles.farmclosestleaf = State end)
 
 local farmt = farmtab:CreateSection("Farming")
-farmt:CreateToggle("Auto Dispenser ⚙", nil, function(State) sleepy.toggles.autodispense = State end)
-farmt:CreateToggle("Auto Field Boosters ⚙", nil, function(State) sleepy.toggles.autoboosters = State end)
-farmt:CreateToggle("Auto Wealth Clock", nil, function(State) sleepy.toggles.clock = State end)
---farmt:CreateToggle("Auto Gingerbread Bears", nil, function(State) sleepy.toggles.collectgingerbreads = State end)
---farmt:CreateToggle("Auto Samovar", nil, function(State) sleepy.toggles.autosamovar = State end)
---farmt:CreateToggle("Auto Stockings", nil, function(State) sleepy.toggles.autostockings = State end)
-farmt:CreateToggle("Auto Planters", nil, function(State) sleepy.toggles.autoplanters = State end):AddToolTip("Will re-plant your planters after converting, if they hit 100%")
---farmt:CreateToggle("Auto Honey Candles", nil, function(State) sleepy.toggles.autocandles = State end)
---farmt:CreateToggle("Auto Beesmas Feast", nil, function(State) sleepy.toggles.autofeast = State end)
---farmt:CreateToggle("Auto Onett's Lid Art", nil, function(State) sleepy.toggles.autoonettart = State end)
-farmt:CreateToggle("Auto Free Antpasses", nil, function(State) sleepy.toggles.freeantpass = State end)
-farmt:CreateToggle("Farm Sprouts", nil, function(State) sleepy.toggles.farmsprouts = State end)
-farmt:CreateToggle("Farm Puffshrooms", nil, function(State) sleepy.toggles.farmpuffshrooms = State end)
---farmt:CreateToggle("Farm Snowflakes ⚠️", nil, function(State) sleepy.toggles.farmsnowflakes = State end)
-farmt:CreateToggle("Teleport To Rares ⚠️", nil, function(State) sleepy.toggles.farmrares = State end)
-farmt:CreateToggle("Auto Accept/Confirm Quests ⚙", nil, function(State) sleepy.toggles.autoquest = State end)
-farmt:CreateToggle("Auto Do Quests ⚙", nil, function(State) sleepy.toggles.autodoquest = State end)
-farmt:CreateToggle("Auto Honeystorm", nil, function(State) sleepy.toggles.honeystorm = State end)
+farmt:CreateToggle("Auto Dispenser ⚙", nil, function(State) andromeda.toggles.autodispense = State end)
+farmt:CreateToggle("Auto Field Boosters ⚙", nil, function(State) andromeda.toggles.autoboosters = State end)
+farmt:CreateToggle("Auto Wealth Clock", nil, function(State) andromeda.toggles.clock = State end)
+--farmt:CreateToggle("Auto Gingerbread Bears", nil, function(State) andromeda.toggles.collectgingerbreads = State end)
+--farmt:CreateToggle("Auto Samovar", nil, function(State) andromeda.toggles.autosamovar = State end)
+--farmt:CreateToggle("Auto Stockings", nil, function(State) andromeda.toggles.autostockings = State end)
+farmt:CreateToggle("Auto Planters", nil, function(State) andromeda.toggles.autoplanters = State end):AddToolTip("Will re-plant your planters after converting, if they hit 100%")
+--farmt:CreateToggle("Auto Honey Candles", nil, function(State) andromeda.toggles.autocandles = State end)
+--farmt:CreateToggle("Auto Beesmas Feast", nil, function(State) andromeda.toggles.autofeast = State end)
+--farmt:CreateToggle("Auto Onett's Lid Art", nil, function(State) andromeda.toggles.autoonettart = State end)
+farmt:CreateToggle("Auto Free Antpasses", nil, function(State) andromeda.toggles.freeantpass = State end)
+farmt:CreateToggle("Farm Sprouts", nil, function(State) andromeda.toggles.farmsprouts = State end)
+farmt:CreateToggle("Farm Puffshrooms", nil, function(State) andromeda.toggles.farmpuffshrooms = State end)
+--farmt:CreateToggle("Farm Snowflakes ⚠️", nil, function(State) andromeda.toggles.farmsnowflakes = State end)
+farmt:CreateToggle("Teleport To Rares ⚠️", nil, function(State) andromeda.toggles.farmrares = State end)
+farmt:CreateToggle("Auto Accept/Confirm Quests ⚙", nil, function(State) andromeda.toggles.autoquest = State end)
+farmt:CreateToggle("Auto Do Quests ⚙", nil, function(State) andromeda.toggles.autodoquest = State end)
+farmt:CreateToggle("Auto Honeystorm", nil, function(State) andromeda.toggles.honeystorm = State end)
 
 
 local mobkill = combtab:CreateSection("Combat")
 mobkill:CreateToggle("Train Crab", nil, function(State) if State then sleepy.humanoidrootpart().CFrame = CFrame.new(-307.52117919922, 107.91863250732, 467.86791992188) end end)
 mobkill:CreateToggle("Train Snail", nil, function(State) fd = game.Workspace.FlowerZones['Stump Field'] if State then sleepy.humanoidrootpart().CFrame = CFrame.new(fd.Position.X, fd.Position.Y-6, fd.Position.Z) else sleepy.humanoidrootpart().CFrame = CFrame.new(fd.Position.X, fd.Position.Y+2, fd.Position.Z) end end)
-mobkill:CreateToggle("Kill Mondo", nil, function(State) sleepy.toggles.killmondo = State end)
-mobkill:CreateToggle("Kill Vicious", nil, function(State) sleepy.toggles.killvicious = State end)
-mobkill:CreateToggle("Kill Windy", nil, function(State) sleepy.toggles.killwindy = State end)
-mobkill:CreateToggle("Auto Kill Mobs", nil, function(State) sleepy.toggles.autokillmobs = State end):AddToolTip("Kills mobs after x pollen converting")
-mobkill:CreateToggle("Avoid Mobs", nil, function(State) sleepy.toggles.avoidmobs = State end)
--- ! mobkill:CreateToggle("Auto Ant", nil, function(State) sleepy.toggles.autoant = State end):AddToolTip("You Need Spark Stuff 😋; Goes to Ant Challenge after pollen converting")
+mobkill:CreateToggle("Kill Mondo", nil, function(State) andromeda.toggles.killmondo = State end)
+mobkill:CreateToggle("Kill Vicious", nil, function(State) andromeda.toggles.killvicious = State end)
+mobkill:CreateToggle("Kill Windy", nil, function(State) andromeda.toggles.killwindy = State end)
+mobkill:CreateToggle("Auto Kill Mobs", nil, function(State) andromeda.toggles.autokillmobs = State end):AddToolTip("Kills mobs after x pollen converting")
+mobkill:CreateToggle("Avoid Mobs", nil, function(State) andromeda.toggles.avoidmobs = State end)
+mobkill:CreateToggle("Auto Ant", nil, function(State) andromeda.toggles.autoant = State end):AddToolTip("You Need Spark Stuff 😋; Goes to Ant Challenge after pollen converting")
 
 local amks = combtab:CreateSection("Auto Kill Mobs Settings")
-amks:CreateTextBox('Kill Mobs After x Convertions', 'default = 3', true, function(Value) sleepy.vars.monstertimer = tonumber(Value) end)
+amks:CreateTextBox('Kill Mobs After x Convertions', 'default = 3', true, function(Value) andromeda.vars.monstertimer = tonumber(Value) end)
 
 
 local wayp = wayptab:CreateSection("Waypoints")
-wayp:CreateDropdown("Field Teleports", fieldstable, function(Option) game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").FlowerZones:FindFirstChild(Option).CFrame end)
-wayp:CreateDropdown("Monster Teleports", spawnerstable, function(Option) d = game:GetService("Workspace").MonsterSpawners:FindFirstChild(Option) game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
-wayp:CreateDropdown("Toys Teleports", toystable, function(Option) d = game:GetService("Workspace").Toys:FindFirstChild(Option).Platform game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
-wayp:CreateButton("Teleport to hive", function() game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.SpawnPos.Value end)
+wayp:CreateDropdown("Field Teleports", fieldstable, function(Option) game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").FlowerZones:FindFirstChild(Option).CFrame end)
+wayp:CreateDropdown("Monster Teleports", spawnerstable, function(Option) d = game:GetService("Workspace").MonsterSpawners:FindFirstChild(Option) game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
+wayp:CreateDropdown("Toys Teleports", toystable, function(Option) d = game:GetService("Workspace").Toys:FindFirstChild(Option).Platform game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
+wayp:CreateButton("Teleport to hive", function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.SpawnPos.Value end)
 
 
 local miscc = misctab:CreateSection("Misc")
-miscc:CreateButton("Ant Challenge Semi-Godmode", function() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(1) game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge") game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position = Vector3.new(93.4228, 42.3983, 553.128) task.wait(2) game:GetService("Players").LocalPlayer.Character.Humanoid.Name = 1 local l = game:GetService("Players").LocalPlayer.Character["1"]:Clone() l.Parent = game:GetService("Players").LocalPlayer.Character l.Name = "Humanoid" task.wait() game:GetService("Players").LocalPlayer.Character["1"]:Destroy() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(8) sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) end)
-local wstoggle = miscc:CreateToggle("Walk Speed", nil, function(State) sleepy.toggles.loopspeed = State end) wstoggle:CreateKeybind("K", function(Key) end)
-local jptoggle = miscc:CreateToggle("Jump Power", nil, function(State) sleepy.toggles.loopjump = State end) jptoggle:CreateKeybind("L", function(Key) end)
-miscc:CreateToggle("Godmode", nil, function(State) sleepy.toggles.godmode = State if State then bssapi:Godmode(true) else bssapi:Godmode(false) end end)
+miscc:CreateButton("Ant Challenge Semi-Godmode", function() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(1) game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge") game.Players.LocalPlayer.Character.HumanoidRootPart.Position = Vector3.new(93.4228, 42.3983, 553.128) task.wait(2) game.Players.LocalPlayer.Character.Humanoid.Name = 1 local l = game.Players.LocalPlayer.Character["1"]:Clone() l.Parent = game.Players.LocalPlayer.Character l.Name = "Humanoid" task.wait() game.Players.LocalPlayer.Character["1"]:Destroy() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(8) sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) end)
+local wstoggle = miscc:CreateToggle("Walk Speed", nil, function(State) andromeda.toggles.loopspeed = State end) wstoggle:CreateKeybind("K", function(Key) end)
+local jptoggle = miscc:CreateToggle("Jump Power", nil, function(State) andromeda.toggles.loopjump = State end) jptoggle:CreateKeybind("L", function(Key) end)
+miscc:CreateToggle("Godmode", nil, function(State) andromeda.toggles.godmode = State if State then bssapi:Godmode(true) else bssapi:Godmode(false) end end)
 local misco = misctab:CreateSection("Other")
 misco:CreateDropdown("Equip Accesories", accesoriestable, function(Option) local ohString1 = "Equip" local ohTable2 = { ["Mute"] = false, ["Type"] = Option, ["Category"] = "Accessory" } game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(ohString1, ohTable2) end)
 misco:CreateDropdown("Equip Masks", masktable, function(Option) local ohString1 = "Equip" local ohTable2 = { ["Mute"] = false, ["Type"] = Option, ["Category"] = "Accessory" } game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(ohString1, ohTable2) end)
@@ -736,88 +743,90 @@ misco:CreateButton("Export Stats Table", function() local StatCache = require(ga
 
 
 local extras = extrtab:CreateSection("Extras")
-extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
+extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/nicknamespoofer.lua"))()end)
+extras:CreateButton("Boost FPS", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/fpsboost.lua"))()end)
+extras:CreateButton("Destroy Decals", function()loadstring(game:HttpGet("https://raw.githubusercontent.com/max0mind/lua/main/UTILITES/destroydecals.lua"))()end)
 extras:CreateTextBox("Glider Speed", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Speed = Value setupvalue(st, st[1]'Glider', glidersTable) end)
 extras:CreateTextBox("Glider Float", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Float = Value setupvalue(st, st[1]'Glider', glidersTable) end)
-extras:CreateButton("Invisibility", function(State) sleepy.teleport(CFrame.new(0,0,0)) wait(1) if game:GetService("Players").LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game:GetService("Players").LocalPlayer.Character.LowerTorso.Root:Clone() game:GetService("Players").LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game:GetService("Players").LocalPlayer.Character.LowerTorso sleepy.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
+extras:CreateButton("Invisibility", function(State) sleepy.teleport(CFrame.new(0,0,0)) wait(1) if game.Players.LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game.Players.LocalPlayer.Character.LowerTorso.Root:Clone() game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game.Players.LocalPlayer.Character.LowerTorso sleepy.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
 extras:CreateToggle("Float", nil, function(State) temptable.float = State end)
 
 
 local farmsettings = setttab:CreateSection("Autofarm Settings")
-farmsettings:CreateTextBox("Autofarming Walkspeed", "Default Value = 60", true, function(Value) sleepy.vars.farmspeed = Value end)
-farmsettings:CreateToggle("^ Loop Speed On Autofarming",nil, function(State) sleepy.toggles.loopfarmspeed = State end)
-farmsettings:CreateToggle("Don't Walk In Field",nil, function(State) sleepy.toggles.farmflower = State end)
-farmsettings:CreateToggle("Convert Hive Balloon",nil, function(State) sleepy.toggles.convertballoons = State end)
-farmsettings:CreateToggle("Don't Farm Tokens",nil, function(State) sleepy.toggles.donotfarmtokens = State end)
-farmsettings:CreateSlider("Walk Speed", 0, 120, 70, false, function(Value) sleepy.vars.walkspeed = Value end)
-farmsettings:CreateSlider("Jump Power", 0, 120, 70, false, function(Value) sleepy.vars.jumppower = Value end)
+farmsettings:CreateTextBox("Autofarming Walkspeed", "Default Value = 60", true, function(Value) andromeda.vars.farmspeed = Value end)
+farmsettings:CreateToggle("^ Loop Speed On Autofarming",nil, function(State) andromeda.toggles.loopfarmspeed = State end)
+farmsettings:CreateToggle("Don't Walk In Field",nil, function(State) andromeda.toggles.farmflower = State end)
+farmsettings:CreateToggle("Convert Hive Balloon",nil, function(State) andromeda.toggles.convertballoons = State end)
+farmsettings:CreateToggle("Don't Farm Tokens",nil, function(State) andromeda.toggles.donotfarmtokens = State end)
+farmsettings:CreateSlider("Walk Speed", 0, 120, 70, false, function(Value) andromeda.vars.walkspeed = Value end)
+farmsettings:CreateSlider("Jump Power", 0, 120, 70, false, function(Value) andromeda.vars.jumppower = Value end)
 local raresettings = setttab:CreateSection("Tokens Settings")
 raresettings:CreateTextBox("Asset ID", 'rbxassetid', false, function(Value) rarename = Value end)
 raresettings:CreateButton("Add Token To Rares List", function()
-    table.insert(sleepy.rares, rarename)
+    table.insert(andromeda.rares, rarename)
     game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Rares List D",true):Destroy()
-    raresettings:CreateDropdown("Rares List", sleepy.rares, function(Option) end)
+    raresettings:CreateDropdown("Rares List", andromeda.rares, function(Option) end)
 end)
 raresettings:CreateButton("Remove Token From Rares List", function()
-    table.remove(sleepy.rares, sleepy.tablefind(sleepy.rares, rarename))
+    table.remove(andromeda.rares, sleepy.tablefind(andromeda.rares, rarename))
     game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Rares List D",true):Destroy()
-    raresettings:CreateDropdown("Rares List", sleepy.rares, function(Option) end)
+    raresettings:CreateDropdown("Rares List", andromeda.rares, function(Option) end)
 end)
-raresettings:CreateDropdown("Rares List", sleepy.rares, function(Option) end)
+raresettings:CreateDropdown("Rares List", andromeda.rares, function(Option) end)
 local dispsettings = setttab:CreateSection("Auto Dispenser & Auto Boosters Settings")
-dispsettings:CreateToggle("Royal Jelly Dispenser", nil, function(State) sleepy.dispensesettings.rj = not sleepy.dispensesettings.rj end)
-dispsettings:CreateToggle("Blueberry Dispenser", nil,  function(State) sleepy.dispensesettings.blub = not sleepy.dispensesettings.blub end)
-dispsettings:CreateToggle("Strawberry Dispenser", nil,  function(State) sleepy.dispensesettings.straw = not sleepy.dispensesettings.straw end)
-dispsettings:CreateToggle("Treat Dispenser", nil,  function(State) sleepy.dispensesettings.treat = not sleepy.dispensesettings.treat end)
-dispsettings:CreateToggle("Coconut Dispenser", nil,  function(State) sleepy.dispensesettings.coconut = not sleepy.dispensesettings.coconut end)
-dispsettings:CreateToggle("Glue Dispenser", nil,  function(State) sleepy.dispensesettings.glue = not sleepy.dispensesettings.glue end)
-dispsettings:CreateToggle("Mountain Top Booster", nil,  function(State) sleepy.dispensesettings.white = not sleepy.dispensesettings.white end)
-dispsettings:CreateToggle("Blue Field Booster", nil,  function(State) sleepy.dispensesettings.blue = not sleepy.dispensesettings.blue end)
-dispsettings:CreateToggle("Red Field Booster", nil,  function(State) sleepy.dispensesettings.red = not sleepy.dispensesettings.red end)
+dispsettings:CreateToggle("Royal Jelly Dispenser", nil, function(State) andromeda.dispensesettings.rj = not andromeda.dispensesettings.rj end)
+dispsettings:CreateToggle("Blueberry Dispenser", nil,  function(State) andromeda.dispensesettings.blub = not andromeda.dispensesettings.blub end)
+dispsettings:CreateToggle("Strawberry Dispenser", nil,  function(State) andromeda.dispensesettings.straw = not andromeda.dispensesettings.straw end)
+dispsettings:CreateToggle("Treat Dispenser", nil,  function(State) andromeda.dispensesettings.treat = not andromeda.dispensesettings.treat end)
+dispsettings:CreateToggle("Coconut Dispenser", nil,  function(State) andromeda.dispensesettings.coconut = not andromeda.dispensesettings.coconut end)
+dispsettings:CreateToggle("Glue Dispenser", nil,  function(State) andromeda.dispensesettings.glue = not andromeda.dispensesettings.glue end)
+dispsettings:CreateToggle("Mountain Top Booster", nil,  function(State) andromeda.dispensesettings.white = not andromeda.dispensesettings.white end)
+dispsettings:CreateToggle("Blue Field Booster", nil,  function(State) andromeda.dispensesettings.blue = not andromeda.dispensesettings.blue end)
+dispsettings:CreateToggle("Red Field Booster", nil,  function(State) andromeda.dispensesettings.red = not andromeda.dispensesettings.red end)
 local guisettings = setttab:CreateSection("GUI Settings")
 local uitoggle = guisettings:CreateToggle("UI Toggle", nil, function(State) Window:Toggle(State) end) uitoggle:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), function(Key) Config.Keybind = Enum.KeyCode[Key] end) uitoggle:SetState(true)
 guisettings:CreateColorpicker("UI Color", function(Color) Window:ChangeColor(Color) end)
 local themes = guisettings:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name) if Name == "Default" then Window:SetBackground("2151741365") elseif Name == "Hearts" then Window:SetBackground("6073763717") elseif Name == "Abstract" then Window:SetBackground("6073743871") elseif Name == "Hexagon" then Window:SetBackground("6073628839") elseif Name == "Circles" then Window:SetBackground("6071579801") elseif Name == "Lace With Flowers" then Window:SetBackground("6071575925") elseif Name == "Floral" then Window:SetBackground("5553946656") end end)themes:SetOption("Default")
-local sleepys = setttab:CreateSection("Configs")
-sleepys:CreateTextBox("Config Name", 'ex: stumpconfig', false, function(Value) temptable.configname = Value end)
-sleepys:CreateButton("Load Config", function() sleepy = game:service'HttpService':JSONDecode(readfile("sleepy/BSS_"..temptable.configname..".json")) end)
-sleepys:CreateButton("Save Config", function() writefile("sleepy/BSS_"..temptable.configname..".json",game:service'HttpService':JSONEncode(sleepy)) end)
-sleepys:CreateButton("Reset Config", function() sleepy = defaultsleepy end)
+local andromedas = setttab:CreateSection("Configs")
+andromedas:CreateTextBox("Config Name", 'ex: stumpconfig', false, function(Value) temptable.configname = Value end)
+andromedas:CreateButton("Load Config", function() andromeda = game:service'HttpService':JSONDecode(readfile("andromeda/BSS_"..temptable.configname..".json")) end)
+andromedas:CreateButton("Save Config", function() writefile("andromeda/BSS_"..temptable.configname..".json",game:service'HttpService':JSONEncode(andromeda)) end)
+andromedas:CreateButton("Reset Config", function() andromeda = defaultandromeda end)
 local fieldsettings = setttab:CreateSection("Fields Settings")
-fieldsettings:CreateDropdown("Best White Field", temptable.whitefields, function(Option) sleepy.bestfields.white = Option end)
-fieldsettings:CreateDropdown("Best Red Field", temptable.redfields, function(Option) sleepy.bestfields.red = Option end)
-fieldsettings:CreateDropdown("Best Blue Field", temptable.bluefields, function(Option) sleepy.bestfields.blue = Option end)
+fieldsettings:CreateDropdown("Best White Field", temptable.whitefields, function(Option) andromeda.bestfields.white = Option end)
+fieldsettings:CreateDropdown("Best Red Field", temptable.redfields, function(Option) andromeda.bestfields.red = Option end)
+fieldsettings:CreateDropdown("Best Blue Field", temptable.bluefields, function(Option) andromeda.bestfields.blue = Option end)
 fieldsettings:CreateDropdown("Field", fieldstable, function(Option) temptable.blackfield = Option end)
-fieldsettings:CreateButton("Add Field To Blacklist", function() table.insert(sleepy.blacklistedfields, temptable.blackfield) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Blacklisted Fields D",true):Destroy() fieldsettings:CreateDropdown("Blacklisted Fields", sleepy.blacklistedfields, function(Option) end) end)
-fieldsettings:CreateButton("Remove Field From Blacklist", function() table.remove(sleepy.blacklistedfields, sleepy.tablefind(sleepy.blacklistedfields, temptable.blackfield)) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Blacklisted Fields D",true):Destroy() fieldsettings:CreateDropdown("Blacklisted Fields", sleepy.blacklistedfields, function(Option) end) end)
-fieldsettings:CreateDropdown("Blacklisted Fields", sleepy.blacklistedfields, function(Option) end)
+fieldsettings:CreateButton("Add Field To Blacklist", function() table.insert(andromeda.blacklistedfields, temptable.blackfield) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Blacklisted Fields D",true):Destroy() fieldsettings:CreateDropdown("Blacklisted Fields", andromeda.blacklistedfields, function(Option) end) end)
+fieldsettings:CreateButton("Remove Field From Blacklist", function() table.remove(andromeda.blacklistedfields, sleepy.tablefind(andromeda.blacklistedfields, temptable.blackfield)) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Blacklisted Fields D",true):Destroy() fieldsettings:CreateDropdown("Blacklisted Fields", andromeda.blacklistedfields, function(Option) end) end)
+fieldsettings:CreateDropdown("Blacklisted Fields", andromeda.blacklistedfields, function(Option) end)
 local aqs = setttab:CreateSection("Auto Quest Settings")
-aqs:CreateDropdown("Do NPC Quests", {'All Quests', 'Bucko Bee', 'Brown Bear', 'Riley Bee', 'Polar Bear'}, function(Option) sleepy.vars.npcprefer = Option end)
-aqs:CreateToggle("Teleport To NPC", nil, function(State) sleepy.toggles.tptonpc = State end)
+aqs:CreateDropdown("Do NPC Quests", {'All Quests', 'Bucko Bee', 'Brown Bear', 'Riley Bee', 'Polar Bear'}, function(Option) andromeda.vars.npcprefer = Option end)
+aqs:CreateToggle("Teleport To NPC", nil, function(State) andromeda.toggles.tptonpc = State end)
 local pts = setttab:CreateSection("Autofarm Priority Tokens")
 pts:CreateTextBox("Asset ID", 'rbxassetid', false, function(Value) rarename = Value end)
-pts:CreateButton("Add Token To Priority List", function() table.insert(sleepy.priority, rarename) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Priority List D",true):Destroy() pts:CreateDropdown("Priority List", sleepy.priority, function(Option) end) end)
-pts:CreateButton("Remove Token From Priority List", function() table.remove(sleepy.priority, sleepy.tablefind(sleepy.priority, rarename)) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Priority List D",true):Destroy() pts:CreateDropdown("Priority List", sleepy.priority, function(Option) end) end)
-pts:CreateDropdown("Priority List", sleepy.priority, function(Option) end)
+pts:CreateButton("Add Token To Priority List", function() table.insert(andromeda.priority, rarename) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Priority List D",true):Destroy() pts:CreateDropdown("Priority List", andromeda.priority, function(Option) end) end)
+pts:CreateButton("Remove Token From Priority List", function() table.remove(andromeda.priority, sleepy.tablefind(andromeda.priority, rarename)) game:GetService("CoreGui"):FindFirstChild(_G.windowname).Main:FindFirstChild("Priority List D",true):Destroy() pts:CreateDropdown("Priority List", andromeda.priority, function(Option) end) end)
+pts:CreateDropdown("Priority List", andromeda.priority, function(Option) end)
 
 -- script
 
 task.spawn(function() while task.wait() do
-    if sleepy.toggles.autofarm then
-        --if sleepy.toggles.farmcoco then getcoco() end
-        --if sleepy.toggles.collectcrosshairs then getcrosshairs() end
-        if sleepy.toggles.farmflame then getflame() end
-        if sleepy.toggles.farmfuzzy then getfuzzy() end
+    if andromeda.toggles.autofarm then
+        --if andromeda.toggles.farmcoco then getcoco() end
+        --if andromeda.toggles.collectcrosshairs then getcrosshairs() end
+        if andromeda.toggles.farmflame then getflame() end
+        if andromeda.toggles.farmfuzzy then getfuzzy() end
     end
 end end)
 
 game.Workspace.Particles.ChildAdded:Connect(function(v)
     if not temptable.started.vicious and not temptable.started.ant then
-        if v.Name == "WarningDisk" and not temptable.started.vicious and sleepy.toggles.autofarm and not temptable.started.ant and sleepy.toggles.farmcoco and (v.Position-sleepy.humanoidrootpart().Position).magnitude < temptable.magnitude and not temptable.converting then
+        if v.Name == "WarningDisk" and not temptable.started.vicious and andromeda.toggles.autofarm and not temptable.started.ant and andromeda.toggles.farmcoco and (v.Position-sleepy.humanoidrootpart().Position).magnitude < temptable.magnitude and not temptable.converting then
             table.insert(temptable.coconuts, v)
             getcoco(v)
             gettoken()
-        elseif v.Name == "Crosshair" and v ~= nil and v.BrickColor ~= BrickColor.new("Forest green") and not temptable.started.ant and v.BrickColor ~= BrickColor.new("Flint") and (v.Position-sleepy.humanoidrootpart().Position).magnitude < temptable.magnitude and sleepy.toggles.autofarm and sleepy.toggles.collectcrosshairs and not temptable.converting then
+        elseif v.Name == "Crosshair" and v ~= nil and v.BrickColor ~= BrickColor.new("Forest green") and not temptable.started.ant and v.BrickColor ~= BrickColor.new("Flint") and (v.Position-sleepy.humanoidrootpart().Position).magnitude < temptable.magnitude and andromeda.toggles.autofarm and andromeda.toggles.collectcrosshairs and not temptable.converting then
             if #temptable.crosshairs <= 3 then
                 table.insert(temptable.crosshairs, v)
                 getcrosshairs(v)
@@ -828,35 +837,34 @@ game.Workspace.Particles.ChildAdded:Connect(function(v)
 end)
 
 task.spawn(function() while task.wait() do
-    if sleepy.toggles.autofarm then
+    if andromeda.toggles.autofarm then
         temptable.magnitude = 70
-        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("ProgressLabel",true) then
-        local pollenprglbl = game:GetService("Players").LocalPlayer.Character:FindFirstChild("ProgressLabel",true)
+        if game.Players.LocalPlayer.Character:FindFirstChild("ProgressLabel",true) then
+        local pollenprglbl = game.Players.LocalPlayer.Character:FindFirstChild("ProgressLabel",true)
         maxpollen = tonumber(pollenprglbl.Text:match("%d+$"))
         local pollencount = game.Players.LocalPlayer.CoreStats.Pollen.Value
         pollenpercentage = pollencount/maxpollen*100
-        fieldselected = game:GetService("Workspace").FlowerZones[sleepy.vars.field]
-
-        if sleepy.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") then
+        fieldselected = game:GetService("Workspace").FlowerZones[andromeda.vars.field]
+        if andromeda.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") then
             for i,v in next, game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests:GetDescendants() do
                 if v.Name == "Description" then
-                    if string.match(v.Parent.Parent.TitleBar.Text, sleepy.vars.npcprefer) or sleepy.vars.npcprefer == "All Quests" and not string.find(v.Text, "Puffshroom") then
+                    if string.match(v.Parent.Parent.TitleBar.Text, andromeda.vars.npcprefer) or andromeda.vars.npcprefer == "All Quests" and not string.find(v.Text, "Puffshroom") then
                         pollentypes = {'White Pollen', "Red Pollen", "Blue Pollen", "Blue Flowers", "Red Flowers", "White Flowers"}
                         text = v.Text
-                        if sleepy.returnvalue(fieldstable, text) and not string.find(v.Text, "Complete!") and not sleepy.findvalue(sleepy.blacklistedfields, sleepy.returnvalue(fieldstable, text)) then
+                        if sleepy.returnvalue(fieldstable, text) and not string.find(v.Text, "Complete!") and not sleepy.findvalue(andromeda.blacklistedfields, sleepy.returnvalue(fieldstable, text)) then
                             d = sleepy.returnvalue(fieldstable, text)
                             fieldselected = game:GetService("Workspace").FlowerZones[d]
                             break
                         elseif sleepy.returnvalue(pollentypes, text) and not string.find(v.Text, 'Complete!') then
                             d = sleepy.returnvalue(pollentypes, text)
                             if d == "Blue Flowers" or d == "Blue Pollen" then
-                                fieldselected = game:GetService("Workspace").FlowerZones[sleepy.bestfields.blue]
+                                fieldselected = game:GetService("Workspace").FlowerZones[andromeda.bestfields.blue]
                                 break
                             elseif d == "White Flowers" or d == "White Pollen" then
-                                fieldselected = game:GetService("Workspace").FlowerZones[sleepy.bestfields.white]
+                                fieldselected = game:GetService("Workspace").FlowerZones[andromeda.bestfields.white]
                                 break
                             elseif d == "Red Flowers" or d == "Red Pollen" then
-                                fieldselected = game:GetService("Workspace").FlowerZones[sleepy.bestfields.red]
+                                fieldselected = game:GetService("Workspace").FlowerZones[andromeda.bestfields.red]
                                 break
                             end
                         end
@@ -864,15 +872,15 @@ task.spawn(function() while task.wait() do
                 end
             end
         else
-            fieldselected = game:GetService("Workspace").FlowerZones[sleepy.vars.field]
+            fieldselected = game:GetService("Workspace").FlowerZones[andromeda.vars.field]
         end
         fieldpos = CFrame.new(fieldselected.Position.X, fieldselected.Position.Y+3, fieldselected.Position.Z)
         fieldposition = fieldselected.Position
-        if temptable.sprouts.detected and temptable.sprouts.coords and sleepy.toggles.farmsprouts then
+        if temptable.sprouts.detected and temptable.sprouts.coords and andromeda.toggles.farmsprouts then
             fieldposition = temptable.sprouts.coords.Position
             fieldpos = temptable.sprouts.coords
         end
-        if sleepy.toggles.farmpuffshrooms and game.Workspace.Happenings.Puffshrooms:FindFirstChildOfClass("Model") then 
+        if andromeda.toggles.farmpuffshrooms and game.Workspace.Happenings.Puffshrooms:FindFirstChildOfClass("Model") then 
             if sleepy.partwithnamepart("Mythic", game.Workspace.Happenings.Puffshrooms) then
                 temptable.magnitude = 25 
                 fieldpos = sleepy.partwithnamepart("Mythic", game.Workspace.Happenings.Puffshrooms):FindFirstChild("Puffball Stem").CFrame
@@ -895,15 +903,15 @@ task.spawn(function() while task.wait() do
                 fieldposition = fieldpos.Position
             end
         end
-        if tonumber(pollenpercentage) < tonumber(sleepy.vars.convertat) then
+        if tonumber(pollenpercentage) < tonumber(andromeda.vars.convertat) then
             if not temptable.tokensfarm then
                 sleepy.tween(2, fieldpos)
                 task.wait(2)
                 temptable.tokensfarm = true
-                if sleepy.toggles.autosprinkler then makesprinklers() end
+                if andromeda.toggles.autosprinkler then makesprinklers() end
             else
-                if sleepy.toggles.killmondo then
-                    while sleepy.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters do
+                if andromeda.toggles.killmondo then
+                    while andromeda.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters do
                         temptable.started.mondo = true
                         while game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") do
                             disableall()
@@ -922,21 +930,21 @@ task.spawn(function() while task.wait() do
                         temptable.started.mondo = false
                     end
                 end
-                if (fieldposition-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > temptable.magnitude then
+                if (fieldposition-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > temptable.magnitude then
                     sleepy.tween(2, fieldpos)
                     task.wait(2)
-                    if sleepy.toggles.autosprinkler then makesprinklers() end
+                    if andromeda.toggles.autosprinkler then makesprinklers() end
                 end
                 getprioritytokens()
-                if sleepy.toggles.avoidmobs then avoidmob() end
-                if sleepy.toggles.farmclosestleaf then closestleaf() end
-                if sleepy.toggles.farmbubbles then getbubble() end
-                if sleepy.toggles.farmclouds then getcloud() end
-                if sleepy.toggles.farmunderballoons then getballoons() end
-                if not sleepy.toggles.donotfarmtokens and done then gettoken() end
-                if not sleepy.toggles.farmflower then getflower() end
+                if andromeda.toggles.avoidmobs then avoidmob() end
+                if andromeda.toggles.farmclosestleaf then closestleaf() end
+                if andromeda.toggles.farmbubbles then getbubble() end
+                if andromeda.toggles.farmclouds then getcloud() end
+                if andromeda.toggles.farmunderballoons then getballoons() end
+                if not andromeda.toggles.donotfarmtokens and done then gettoken() end
+                if not andromeda.toggles.farmflower then getflower() end
             end
-        elseif tonumber(pollenpercentage) >= tonumber(sleepy.vars.convertat) then
+        elseif tonumber(pollenpercentage) >= tonumber(andromeda.vars.convertat) then
             temptable.tokensfarm = false
             sleepy.tween(2, game:GetService("Players").LocalPlayer.SpawnPos.Value * CFrame.fromEulerAnglesXYZ(0, 110, 0) + Vector3.new(0, 0, 9))
             task.wait(2)
@@ -944,21 +952,21 @@ task.spawn(function() while task.wait() do
             repeat
                 converthoney()
             until game.Players.LocalPlayer.CoreStats.Pollen.Value == 0
-            if sleepy.toggles.convertballoons and gethiveballoon() then
+            if andromeda.toggles.convertballoons and gethiveballoon() then
                 task.wait(6)
                 repeat
                     task.wait()
                     converthoney()
-                until gethiveballoon() == false or not sleepy.toggles.convertballoons
+                until gethiveballoon() == false or not andromeda.toggles.convertballoons
             end
             temptable.converting = false
             temptable.act = temptable.act + 1
             task.wait(6)
-            if sleepy.toggles.autoant and not game:GetService("Workspace").Toys["Ant Challenge"].Busy.Value and rtsg().Eggs.AntPass > 0 then farmant() end
-            if sleepy.toggles.autoquest then makequests() end
-            if sleepy.toggles.autoplanters then collectplanters() end
-            if sleepy.toggles.autokillmobs then 
-                if temptable.act >= sleepy.vars.monstertimer then
+            if andromeda.toggles.autoant and not game:GetService("Workspace").Toys["Ant Challenge"].Busy.Value and rtsg().Eggs.AntPass > 0 then farmant() end
+            if andromeda.toggles.autoquest then makequests() end
+            if andromeda.toggles.autoplanters then collectplanters() end
+            if andromeda.toggles.autokillmobs then 
+                if temptable.act >= andromeda.vars.monstertimer then
                     temptable.started.monsters = true
                     temptable.act = 0
                     killmobs() 
@@ -971,7 +979,7 @@ end end end)
 
 task.spawn(function()
     while task.wait(1) do
-		if sleepy.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters then
+		if andromeda.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters then
             temptable.started.vicious = true
             disableall()
 			local vichumanoid = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
@@ -985,7 +993,7 @@ task.spawn(function()
 			end
 			for i,v in next, game.workspace.Particles:GetChildren() do
 				for x in string.gmatch(v.Name, "Vicious") do
-                    while sleepy.toggles.killvicious and temptable.detected.vicious do task.wait() if string.find(v.Name, "Vicious") then
+                    while andromeda.toggles.killvicious and temptable.detected.vicious do task.wait() if string.find(v.Name, "Vicious") then
                         for i=1, 4 do temptable.float = true vichumanoid.CFrame = CFrame.new(v.Position.x+10, v.Position.y, v.Position.z) task.wait(.3)
                         end
                     end end
@@ -1000,11 +1008,11 @@ task.spawn(function()
 end)
 
 task.spawn(function() while task.wait() do
-    if sleepy.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters then
+    if andromeda.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters then
         temptable.started.windy = true
         wlvl = "" aw = false awb = false -- some variable for autowindy, yk?
         disableall()
-        while sleepy.toggles.killwindy and temptable.detected.windy do
+        while andromeda.toggles.killwindy and temptable.detected.windy do
             if not aw then
                 for i,v in pairs(workspace.Monsters:GetChildren()) do
                     if string.find(v.Name, "Windy") then wlvl = v.Name aw = true -- we found windy!
@@ -1033,9 +1041,9 @@ task.spawn(function() while task.wait() do
 end end)
 
 task.spawn(function() while task.wait(0.001) do
-    if sleepy.toggles.traincrab then game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
-    if sleepy.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, sleepy.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
-    if sleepy.toggles.autodig then workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer() if game.Players.LocalPlayer then if game:GetService("Players").LocalPlayer.Character then if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") then if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) then clickevent = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) or nil end end end if clickevent then clickevent:FireServer() end end end
+    if andromeda.toggles.traincrab then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
+    if andromeda.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, andromeda.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
+    if andromeda.toggles.autodig then workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer() if game.Players.LocalPlayer then if game.Players.LocalPlayer.Character then if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) then clickevent = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) or nil end end end if clickevent then clickevent:FireServer() end end end
 end end)
 
 game:GetService("Workspace").Particles.Folder2.ChildAdded:Connect(function(child)
@@ -1075,7 +1083,7 @@ end)
 
 task.spawn(function() while task.wait(.1) do
     if not temptable.converting then
-        if sleepy.toggles.autosamovar then
+        if andromeda.toggles.autosamovar then
             game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Samovar")
             platformm = game:GetService("Workspace").Toys.Samovar.Platform
             for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
@@ -1084,7 +1092,7 @@ task.spawn(function() while task.wait(.1) do
                 end
             end
         end
-        if sleepy.toggles.autostockings then
+        if andromeda.toggles.autostockings then
             game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Stockings")
             platformm = game:GetService("Workspace").Toys.Stockings.Platform
             for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
@@ -1093,7 +1101,7 @@ task.spawn(function() while task.wait(.1) do
                 end
             end
         end
-        if sleepy.toggles.autoonettart then
+        if andromeda.toggles.autoonettart then
             game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Onett's Lid Art")
             platformm = game:GetService("Workspace").Toys["Onett's Lid Art"].Platform
             for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
@@ -1102,7 +1110,7 @@ task.spawn(function() while task.wait(.1) do
                 end
             end
         end
-        if sleepy.toggles.autocandles then
+        if andromeda.toggles.autocandles then
             game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Honeyday Candles")
             platformm = game:GetService("Workspace").Toys["Honeyday Candles"].Platform
             for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
@@ -1111,7 +1119,7 @@ task.spawn(function() while task.wait(.1) do
                 end
             end
         end
-        if sleepy.toggles.autofeast then
+        if andromeda.toggles.autofeast then
             game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Beesmas Feast")
             platformm = game:GetService("Workspace").Toys["Beesmas Feast"].Platform
             for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
@@ -1126,30 +1134,30 @@ end end)
 task.spawn(function() while task.wait(1) do
     temptable.runningfor = temptable.runningfor + 1
     temptable.honeycurrent = statsget().Totals.Honey
-    if sleepy.toggles.honeystorm then game.ReplicatedStorage.Events.ToyEvent:FireServer("Honeystorm") end
-    if sleepy.toggles.collectgingerbreads then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Gingerbread House") end
-    if sleepy.toggles.autodispense then
-        if sleepy.dispensesettings.rj then local A_1 = "Free Royal Jelly Dispenser" local Event = game:GetService("ReplicatedStorage").Events.ToyEvent Event:FireServer(A_1) end
-        if sleepy.dispensesettings.blub then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Blueberry Dispenser") end
-        if sleepy.dispensesettings.straw then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Strawberry Dispenser") end
-        if sleepy.dispensesettings.treat then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Treat Dispenser") end
-        if sleepy.dispensesettings.coconut then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Coconut Dispenser") end
-        if sleepy.dispensesettings.glue then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Glue Dispenser") end
+    if andromeda.toggles.honeystorm then game.ReplicatedStorage.Events.ToyEvent:FireServer("Honeystorm") end
+    if andromeda.toggles.collectgingerbreads then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Gingerbread House") end
+    if andromeda.toggles.autodispense then
+        if andromeda.dispensesettings.rj then local A_1 = "Free Royal Jelly Dispenser" local Event = game:GetService("ReplicatedStorage").Events.ToyEvent Event:FireServer(A_1) end
+        if andromeda.dispensesettings.blub then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Blueberry Dispenser") end
+        if andromeda.dispensesettings.straw then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Strawberry Dispenser") end
+        if andromeda.dispensesettings.treat then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Treat Dispenser") end
+        if andromeda.dispensesettings.coconut then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Coconut Dispenser") end
+        if andromeda.dispensesettings.glue then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Glue Dispenser") end
     end
-    if sleepy.toggles.autoboosters then 
-        if sleepy.dispensesettings.white then game.ReplicatedStorage.Events.ToyEvent:FireServer("Field Booster") end
-        if sleepy.dispensesettings.red then game.ReplicatedStorage.Events.ToyEvent:FireServer("Red Field Booster") end
-        if sleepy.dispensesettings.blue then game.ReplicatedStorage.Events.ToyEvent:FireServer("Blue Field Booster") end
+    if andromeda.toggles.autoboosters then 
+        if andromeda.dispensesettings.white then game.ReplicatedStorage.Events.ToyEvent:FireServer("Field Booster") end
+        if andromeda.dispensesettings.red then game.ReplicatedStorage.Events.ToyEvent:FireServer("Red Field Booster") end
+        if andromeda.dispensesettings.blue then game.ReplicatedStorage.Events.ToyEvent:FireServer("Blue Field Booster") end
     end
-    if sleepy.toggles.clock then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Wealth Clock") end
-    if sleepy.toggles.freeantpass then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Free Ant Pass Dispenser") end
-    -- ! gainedhoneylabel:UpdateText("Gained Honey: "..sleepy.suffixstring(temptable.honeycurrent - temptable.honeystart))
+    if andromeda.toggles.clock then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Wealth Clock") end
+    if andromeda.toggles.freeantpass then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Free Ant Pass Dispenser") end
+    gainedhoneylabel:UpdateText("Gained Honey: "..sleepy.suffixstring(temptable.honeycurrent - temptable.honeystart))
 end end)
 
 game:GetService('RunService').Heartbeat:connect(function() 
-    if sleepy.toggles.autoquest then firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.NPC.ButtonOverlay.MouseButton1Click) end
-    if sleepy.toggles.loopspeed then game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.walkspeed end
-    if sleepy.toggles.loopjump then game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = sleepy.vars.jumppower end
+    if andromeda.toggles.autoquest then firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.NPC.ButtonOverlay.MouseButton1Click) end
+    if andromeda.toggles.loopspeed then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = andromeda.vars.walkspeed end
+    if andromeda.toggles.loopjump then game.Players.LocalPlayer.Character.Humanoid.JumpPower = andromeda.vars.jumppower end
 end)
 
 game:GetService('RunService').Heartbeat:connect(function()
@@ -1157,7 +1165,7 @@ game:GetService('RunService').Heartbeat:connect(function()
 end)
 
 game:GetService('RunService').Heartbeat:connect(function() 
-    if temptable.float then game:GetService("Players").LocalPlayer.Character.Humanoid.BodyTypeScale.Value = 0 floatpad.CanCollide = true floatpad.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.X, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Y-3.75, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Z) task.wait(0)  else floatpad.CanCollide = false end
+    if temptable.float then game.Players.LocalPlayer.Character.Humanoid.BodyTypeScale.Value = 0 floatpad.CanCollide = true floatpad.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y-3.75, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z) task.wait(0)  else floatpad.CanCollide = false end
 end)
 
 local vu = game:GetService("VirtualUser")
@@ -1165,7 +1173,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function() vu:Button2Down(V
 end)
 
 task.spawn(function()while task.wait() do
-    if sleepy.toggles.farmsnowflakes then
+    if andromeda.toggles.farmsnowflakes then
         task.wait(3)
         for i,v in next, temptable.tokenpath:GetChildren() do
             if v:FindFirstChildOfClass("Decal") and v:FindFirstChildOfClass("Decal").Texture == "rbxassetid://6087969886" and v.Transparency == 0 then
@@ -1176,19 +1184,19 @@ task.spawn(function()while task.wait() do
     end
 end end)
 
-game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
     humanoid = char:WaitForChild("Humanoid")
     humanoid.Died:Connect(function()
-        if sleepy.toggles.autofarm then
+        if andromeda.toggles.autofarm then
             temptable.dead = true
-            sleepy.toggles.autofarm = false
+            andromeda.toggles.autofarm = false
             temptable.converting = false
             temptable.farmtoken = false
         end
         if temptable.dead then
             task.wait(25)
             temptable.dead = false
-            sleepy.toggles.autofarm = true local player = game.Players.LocalPlayer
+            andromeda.toggles.autofarm = true local player = game.Players.LocalPlayer
             temptable.converting = false
             temptable.tokensfarm = true
         end
@@ -1202,9 +1210,9 @@ for _,v in next, game.workspace.Collectibles:GetChildren() do
 end 
 
 task.spawn(function() while task.wait() do
-    pos = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+    pos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
     task.wait(0.00001)
-    currentSpeed = (pos-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+    currentSpeed = (pos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude
     if currentSpeed > 0 then
         temptable.running = true
     else
@@ -1213,7 +1221,7 @@ task.spawn(function() while task.wait() do
 end end)
 
 hives = game.Workspace.Honeycombs:GetChildren() for i = #hives, 1, -1 do  v = game.Workspace.Honeycombs:GetChildren()[i] if v.Owner.Value == nil then game.ReplicatedStorage.Events.ClaimHive:FireServer(v.HiveID.Value) end end
-if _G.autoload then if isfile("sleepy/BSS_".._G.autoload..".json") then sleepy = game:service'HttpService':JSONDecode(readfile("sleepy/BSS_".._G.autoload..".json")) end end
+if _G.autoload then if isfile("andromeda/BSS_".._G.autoload..".json") then andromeda = game:service'HttpService':JSONDecode(readfile("andromeda/BSS_".._G.autoload..".json")) end end
 for _, part in next, workspace:FindFirstChild("FieldDecos"):GetDescendants() do if part:IsA("BasePart") then part.CanCollide = false part.Transparency = part.Transparency < 0.5 and 0.5 or part.Transparency task.wait() end end
 for _, part in next, workspace:FindFirstChild("Decorations"):GetDescendants() do if part:IsA("BasePart") and (part.Parent.Name == "Bush" or part.Parent.Name == "Blue Flower") then part.CanCollide = false part.Transparency = part.Transparency < 0.5 and 0.5 or part.Transparency task.wait() end end
 for i,v in next, workspace.Decorations.Misc:GetDescendants() do if v.Parent.Name == "Mushroom" then v.CanCollide = false v.Transparency = 0.5 end end
