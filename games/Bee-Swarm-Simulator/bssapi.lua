@@ -5,7 +5,7 @@ function bsslib:getInventory()
 end
 
 function bsslib.Pollen()
-    return tonumber(game.PlayersLocalPlayer.Character:FindFirstChild("ProgressLabel",true).Text:match("%d+$"))
+    return tonumber(game.Players.LocalPlayer.Character:FindFirstChild("ProgressLabel",true).Text:match("%d+$"))
 end
 
 function bsslib:GetCooldown(mob)
