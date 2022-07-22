@@ -649,11 +649,11 @@ end
 local Config = { WindowName = "🌙 sleepy | v"..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
-local hometab = Window:CreateTab("Home")
-local farmtab = Window:CreateTab("Farming")
-local combtab = Window:CreateTab("Combat")
-local wayptab = Window:CreateTab("Waypoints")
-local misctab = Window:CreateTab("Misc")
+local hometab = Window:CreateTab("home")
+local farmtab = Window:CreateTab("farming")
+local combtab = Window:CreateTab("combat")
+local wayptab = Window:CreateTab("waypoints")
+local misctab = Window:CreateTab("miscellaneous")
 local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
 local information = hometab:CreateSection("Information")
