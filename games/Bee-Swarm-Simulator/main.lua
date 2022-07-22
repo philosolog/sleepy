@@ -20,8 +20,8 @@ local hi = false
 -- Script tables
 
 local temptable = {
-    version = "1.0.0",
-    blackfield = "Ant Field",
+    version = "1",
+    blackfield = "Mountain Top Field",
     redfields = {},
     bluefields = {},
     whitefields = {},
@@ -29,9 +29,7 @@ local temptable = {
     balloondetected = false,
     puffshroomdetected = false,
     magnitude = 70,
-    blacklist = {
-        "e_mrFluk2281"
-    },
+    blacklist = {},
     running = false,
     configname = "",
     tokenpath = game:GetService("Workspace").Collectibles,
@@ -659,7 +657,6 @@ local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
 
 local information = hometab:CreateSection("Information")
-information:CreateLabel("Thanks you for using our script, "..sleepy.nickname)
 information:CreateLabel("Script version: "..temptable.version)
 information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
