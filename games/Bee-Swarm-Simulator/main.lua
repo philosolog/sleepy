@@ -658,7 +658,7 @@ local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
 
 local information = hometab:CreateSection("Information")
-information:CreateLabel("Thanks you for using our script, pro."--"..sleepy.nickname)
+information:CreateLabel("Thanks you for using our script, pro.")--"..sleepy.nickname)
 information:CreateLabel("Script version: "..temptable.version)
 information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
