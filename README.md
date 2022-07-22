@@ -9,11 +9,11 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/mai
 - [🍈 Blox Fruits](https://www.roblox.com/games/2753915549)
 
 ### 📝
-- [⛭ hub]()
+- [⛭]()
 	- [ ] discord-to-roblox script control
     - [ ] rejoin
     - [ ] server hop
-- [🐝 Bee Swarm Simulator](https://www.roblox.com/games/1537690962)
+- [🐝](https://www.roblox.com/games/1537690962)
 	- [ ] auto-quests
 	- [ ] detailed field stats
 	- [ ] auto-field (highest possible gains)
