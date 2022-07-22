@@ -246,7 +246,7 @@ local sleepy = {
         godmode = false
     },
     vars = {
-        field = "Ant Field",
+        field = "Mountain Top Field",
         convertat = 100,
         farmspeed = 60,
         prefer = "Tokens",
@@ -709,7 +709,7 @@ mobkill:CreateToggle("Kill Vicious", nil, function(State) sleepy.toggles.killvic
 mobkill:CreateToggle("Kill Windy", nil, function(State) sleepy.toggles.killwindy = State end)
 mobkill:CreateToggle("Auto Kill Mobs", nil, function(State) sleepy.toggles.autokillmobs = State end):AddToolTip("Kills mobs after x pollen converting")
 mobkill:CreateToggle("Avoid Mobs", nil, function(State) sleepy.toggles.avoidmobs = State end)
-mobkill:CreateToggle("Auto Ant", nil, function(State) sleepy.toggles.autoant = State end):AddToolTip("You Need Spark Stuff 😋; Goes to Ant Challenge after pollen converting")
+-- ! mobkill:CreateToggle("Auto Ant", nil, function(State) sleepy.toggles.autoant = State end):AddToolTip("You Need Spark Stuff 😋; Goes to Ant Challenge after pollen converting")
 
 local amks = combtab:CreateSection("Auto Kill Mobs Settings")
 amks:CreateTextBox('Kill Mobs After x Convertions', 'default = 3', true, function(Value) sleepy.vars.monstertimer = tonumber(Value) end)
