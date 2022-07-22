@@ -33,7 +33,6 @@ local sleepy = {
             })
         end)
     end,
-    ["executorName"] = reretreterterererrrrr
     ["isSynapse"] = function()
         if syn then
             return true
