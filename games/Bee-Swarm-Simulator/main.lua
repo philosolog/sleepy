@@ -647,7 +647,7 @@ function makequests()
     end end end end end
 end
 
-local Config = { WindowName = "🌌  sleepy | "..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
+local Config = { WindowName = "🌙  sleepy | "..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
 local hometab = Window:CreateTab("Home")
@@ -664,12 +664,9 @@ information:CreateLabel("Script version: "..temptable.version)
 information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
-information:CreateLabel("Place version: "..game.PlaceVersion)
-information:CreateLabel("Script by max0mind, .anon and a10b")
-information:CreateLabel("Special thanks for '🌘 kocmoc'")
+
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
-information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/gGHEDdTvH7") end)
-information:CreateButton("Donation", function() setclipboard("https://qiwi.com/n/MAX0MIND") end)
+information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/aVgrSFCHpu") end)
 
 
 local farmo = farmtab:CreateSection("Farming")
