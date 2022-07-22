@@ -1,5 +1,5 @@
 local ver = "1" -- TODO: GitHub commits.
-
+local Character = game.Players.LocalPlayer.CharacterAdded:Wait()
 local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
@@ -8,16 +8,16 @@ local sleepy = {
         return v1/v2
     end,
     ["humanoidrootpart"] = function()
-        return game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        return Character.HumanoidRootPart
     end,
     ["humanoid"] = function() 
-        return game:GetService("Players").LocalPlayer.Character.Humanoid
+        return Character.Humanoid
     end,
     ["tween"] = function(time, pos) -- tween to position by (time) + (cframe)
         game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(time, Enum.EasingStyle.Linear), {CFrame = pos}):Play() task.wait(time)
     end,
     ["walkTo"] = function(v3) -- walk to position (not pathfinding)
-       game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(v3) 
+       Character.Humanoid:MoveTo(v3) 
     end,
     ["isExist"] = function(obj) -- check for object, if it is exist then returnes true
         if obj ~= nil then
@@ -139,7 +139,7 @@ local sleepy = {
         coroutine.resume(wa)
     end,
     ['getclosestpart'] = function(path, t)
-        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        local root = Character.HumanoidRootPart
         if root == nil then return end
         local studs = math.huge
         local part;
@@ -179,7 +179,7 @@ local sleepy = {
         if not magnitude then
             magnitude = math.huge
         end
-        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        local root = Character.HumanoidRootPart
         if root == nil then return end
         local size = Vector3.new(math.huge,math.huge,math.huge)
         local part;
@@ -284,8 +284,8 @@ local sleepy = {
         path:ComputeAsync(Root.Position, target)
         local waypoints = path:GetWaypoints()
         for i, waypoint in ipairs(waypoints) do
-            game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(waypoint.Position)
-            game:GetService("Players").LocalPlayer.Character.Humanoid.MoveToFinished:wait()
+            Character.Humanoid:MoveTo(waypoint.Position)
+            Character.Humanoid.MoveToFinished:wait()
             if waypoint.Action == Enum.PathWaypointAction.Jump then
                 Humanoid.Jump = true
             end

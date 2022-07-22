@@ -973,7 +973,8 @@ task.spawn(function()
 		if sleepy.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters then
             temptable.started.vicious = true
             disableall()
-			local vichumanoid = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+			local Character = game.Players.LocalPlayer.CharacterAdded:Wait()
+			local vichumanoid = Character.HumanoidRootPart
 			for i,v in next, game.workspace.Particles:GetChildren() do
 				for x in string.gmatch(v.Name, "Vicious") do
 					if string.find(v.Name, "Vicious") then
