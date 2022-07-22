@@ -1,5 +1,5 @@
 local ver = "1" -- TODO: GitHub commits.
-local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+--local Character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 local sleepy = {
     ["log"] = function(text) -- just print() who tf will use this
         print(text)
