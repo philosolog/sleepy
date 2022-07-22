@@ -1202,7 +1202,7 @@ for _,v in next, game.workspace.Collectibles:GetChildren() do
 end 
 
 task.spawn(function() while task.wait() do
-    pos = game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+    pos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
     task.wait(0.00001)
     currentSpeed = (pos-game.Players.LocalPlayer.game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
     if currentSpeed > 0 then
