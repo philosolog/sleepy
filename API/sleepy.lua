@@ -52,7 +52,7 @@ local sleepy = {
             print(i,v)
         end
     end,
-    ['nickname'] = game.Players.LocalPlayer.Name,
+    ['nickname'] = "pro",
     ['ver'] = ver,
     ['placeid'] = game.PlaceId,
     ['placeversion'] = game.PlaceVersion,
