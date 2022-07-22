@@ -21,7 +21,7 @@ local hi = false
 
 local temptable = {
     version = "1",
-    blackfield = "Mountain Top Field",
+    blackfield = "Ant Field",
     redfields = {},
     bluefields = {},
     whitefields = {},
@@ -836,7 +836,7 @@ task.spawn(function() while task.wait() do
         local pollencount = game.Players.LocalPlayer.CoreStats.Pollen.Value
         pollenpercentage = pollencount/maxpollen*100
         fieldselected = game:GetService("Workspace").FlowerZones[sleepy.vars.field]
-		print(fieldselected)
+
         if sleepy.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") then
             for i,v in next, game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests:GetDescendants() do
                 if v.Name == "Description" then
@@ -1126,7 +1126,6 @@ end end)
 task.spawn(function() while task.wait(1) do
     temptable.runningfor = temptable.runningfor + 1
     temptable.honeycurrent = statsget().Totals.Honey
-	print(temptable.honeycurrent)
     if sleepy.toggles.honeystorm then game.ReplicatedStorage.Events.ToyEvent:FireServer("Honeystorm") end
     if sleepy.toggles.collectgingerbreads then game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Gingerbread House") end
     if sleepy.toggles.autodispense then
