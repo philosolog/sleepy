@@ -9,10 +9,5 @@ a roblox gui for overnight afk sessions
 - [ ] detailed field stats
 - [ ] auto-field (highest possible gains)
 - [ ] auto-ant
-### 🍈
-- [ ] auto-quests
-- [ ] detailed field stats
-- [ ] auto-field (highest possible gains)
-- [ ] auto-ant
 ### misc.
 - discord-to-roblox script control
