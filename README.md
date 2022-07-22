@@ -1,5 +1,5 @@
 # 🌙
-*a hub for afkers*
+*afker hub lol*
 # 📝
 - games
 	- [🐝](https://www.roblox.com/games/1537690962)
