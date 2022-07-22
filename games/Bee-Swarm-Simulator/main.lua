@@ -275,7 +275,7 @@ local defaultsleepy = sleepy
 
 function statsget() local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() return stats end
 function farm(trying)
-    if sleepy.toggles.loopfarmspeed then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed end
+    if sleepy.toggles.loopfarmspeed then game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed end
     sleepy.humanoid():MoveTo(trying.Position) 
     repeat task.wait() until (trying.Position-sleepy.humanoidrootpart().Position).magnitude <=4 or not IsToken(trying) or not temptable.running
 end
@@ -324,7 +324,7 @@ function gettoken(v3)
     end
     task.wait()
     for e,r in next, game:GetService("Workspace").Collectibles:GetChildren() do
-        if tonumber((r.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and (v3-r.Position).magnitude <= temptable.magnitude then
+        if tonumber((r.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and (v3-r.Position).magnitude <= temptable.magnitude then
             farm(r)
         end
     end
@@ -471,7 +471,7 @@ function getprioritytokens()
             if r:FindFirstChildOfClass("Decal") then
                 local aaaaaaaa = string.split(r:FindFirstChildOfClass("Decal").Texture, 'rbxassetid://')[2]
                 if aaaaaaaa ~= nil and sleepy.findvalue(sleepy.priority, aaaaaaaa) then
-                    if r.Name == game.Players.LocalPlayer.Name and not r:FindFirstChild("got it") or tonumber((r.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and not r:FindFirstChild("got it") then
+                    if r.Name == game.Players.LocalPlayer.Name and not r:FindFirstChild("got it") or tonumber((r.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and not r:FindFirstChild("got it") then
                         farm(r) local val = Instance.new("IntValue",r) val.Name = "got it" break
                     end
                 end
@@ -505,10 +505,10 @@ end
 function converthoney()
     task.wait(0)
     if temptable.converting then
-        if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then
+        if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then
             sleepy.tween(1, game:GetService("Players").LocalPlayer.SpawnPos.Value * CFrame.fromEulerAnglesXYZ(0, 110, 0) + Vector3.new(0, 0, 9))
             task.wait(.9)
-            if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer("ToggleHoneyMaking") end
+            if game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.TextBox.Text ~= "Stop Making Honey" and game.Players.LocalPlayer.PlayerGui.ScreenGui.ActivateButton.BackgroundColor3 ~= Color3.new(201, 39, 28) or (game:GetService("Players").LocalPlayer.SpawnPos.Value.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 10 then game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer("ToggleHoneyMaking") end
             task.wait(.1)
         end
     end
@@ -516,7 +516,7 @@ end
 
 function closestleaf()
     for i,v in next, game.Workspace.Flowers:GetChildren() do
-        if temptable.running == false and tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if temptable.running == false and tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -525,7 +525,7 @@ end
 
 function getbubble()
     for i,v in next, game.workspace.Particles:GetChildren() do
-        if string.find(v.Name, "Bubble") and temptable.running == false and tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if string.find(v.Name, "Bubble") and temptable.running == false and tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -536,7 +536,7 @@ function getballoons()
     for i,v in next, game:GetService("Workspace").Balloons.FieldBalloons:GetChildren() do
         if v:FindFirstChild("BalloonRoot") and v:FindFirstChild("PlayerName") then
             if v:FindFirstChild("PlayerName").Value == game.Players.LocalPlayer.Name then
-                if tonumber((v.BalloonRoot.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+                if tonumber((v.BalloonRoot.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
                     sleepy.walkTo(v.BalloonRoot.Position)
                 end
             end
@@ -546,10 +546,10 @@ end
 
 function getflower()
     flowerrrr = flowertable[math.random(#flowertable)]
-    if tonumber((flowerrrr-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and tonumber((flowerrrr-fieldposition).magnitude) <= temptable.magnitude/1.4 then 
+    if tonumber((flowerrrr-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) <= temptable.magnitude/1.4 and tonumber((flowerrrr-fieldposition).magnitude) <= temptable.magnitude/1.4 then 
         if temptable.running == false then 
             if sleepy.toggles.loopfarmspeed then 
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed 
+                game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.farmspeed 
             end 
             sleepy.walkTo(flowerrrr) 
         end 
@@ -559,7 +559,7 @@ end
 function getcloud()
     for i,v in next, game:GetService("Workspace").Clouds:GetChildren() do
         e = v:FindFirstChild("Plane")
-        if e and tonumber((e.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if e and tonumber((e.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             sleepy.walkTo(e.Position)
         end
     end
@@ -578,7 +578,7 @@ end
 function getfuzzy()
     pcall(function()
         for i,v in next, game.workspace.Particles:GetChildren() do
-            if v.Name == "DustBunnyInstance" and temptable.running == false and tonumber((v.Plane.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+            if v.Name == "DustBunnyInstance" and temptable.running == false and tonumber((v.Plane.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
                 if v:FindFirstChild("Plane") then
                     farm(v:FindFirstChild("Plane"))
                     break
@@ -590,7 +590,7 @@ end
 
 function getflame()
     for i,v in next, game:GetService("Workspace").PlayerFlames:GetChildren() do
-        if tonumber((v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
+        if tonumber((v.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
             farm(v)
             break
         end
@@ -600,8 +600,8 @@ end
 function avoidmob()
     for i,v in next, game:GetService("Workspace").Monsters:GetChildren() do
         if v:FindFirstChild("Head") then
-            if (v.Head.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 and sleepy.humanoid():GetState() ~= Enum.HumanoidStateType.Freefall then
-                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            if (v.Head.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 and sleepy.humanoid():GetState() ~= Enum.HumanoidStateType.Freefall then
+                game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
             end
         end
     end
@@ -628,7 +628,7 @@ function makequests()
             button = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.ActivateButton.MouseButton1Click
             if image.ImageTransparency == 0 then
                 if sleepy.toggles.tptonpc then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
                     task.wait(1)
                 else
                     sleepy.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
@@ -716,14 +716,14 @@ amks:CreateTextBox('Kill Mobs After x Convertions', 'default = 3', true, functio
 
 
 local wayp = wayptab:CreateSection("Waypoints")
-wayp:CreateDropdown("Field Teleports", fieldstable, function(Option) game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").FlowerZones:FindFirstChild(Option).CFrame end)
-wayp:CreateDropdown("Monster Teleports", spawnerstable, function(Option) d = game:GetService("Workspace").MonsterSpawners:FindFirstChild(Option) game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
-wayp:CreateDropdown("Toys Teleports", toystable, function(Option) d = game:GetService("Workspace").Toys:FindFirstChild(Option).Platform game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
-wayp:CreateButton("Teleport to hive", function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.SpawnPos.Value end)
+wayp:CreateDropdown("Field Teleports", fieldstable, function(Option) game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").FlowerZones:FindFirstChild(Option).CFrame end)
+wayp:CreateDropdown("Monster Teleports", spawnerstable, function(Option) d = game:GetService("Workspace").MonsterSpawners:FindFirstChild(Option) game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
+wayp:CreateDropdown("Toys Teleports", toystable, function(Option) d = game:GetService("Workspace").Toys:FindFirstChild(Option).Platform game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d.Position.X, d.Position.Y+3, d.Position.Z) end)
+wayp:CreateButton("Teleport to hive", function() game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.SpawnPos.Value end)
 
 
 local miscc = misctab:CreateSection("Misc")
-miscc:CreateButton("Ant Challenge Semi-Godmode", function() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(1) game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge") game.Players.LocalPlayer.Character.HumanoidRootPart.Position = Vector3.new(93.4228, 42.3983, 553.128) task.wait(2) game.Players.LocalPlayer.Character.Humanoid.Name = 1 local l = game.Players.LocalPlayer.Character["1"]:Clone() l.Parent = game.Players.LocalPlayer.Character l.Name = "Humanoid" task.wait() game.Players.LocalPlayer.Character["1"]:Destroy() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(8) sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) end)
+miscc:CreateButton("Ant Challenge Semi-Godmode", function() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(1) game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge") game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position = Vector3.new(93.4228, 42.3983, 553.128) task.wait(2) game:GetService("Players").LocalPlayer.Character.Humanoid.Name = 1 local l = game:GetService("Players").LocalPlayer.Character["1"]:Clone() l.Parent = game:GetService("Players").LocalPlayer.Character l.Name = "Humanoid" task.wait() game:GetService("Players").LocalPlayer.Character["1"]:Destroy() sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) task.wait(8) sleepy.tween(1, CFrame.new(93.4228, 32.3983, 553.128)) end)
 local wstoggle = miscc:CreateToggle("Walk Speed", nil, function(State) sleepy.toggles.loopspeed = State end) wstoggle:CreateKeybind("K", function(Key) end)
 local jptoggle = miscc:CreateToggle("Jump Power", nil, function(State) sleepy.toggles.loopjump = State end) jptoggle:CreateKeybind("L", function(Key) end)
 miscc:CreateToggle("Godmode", nil, function(State) sleepy.toggles.godmode = State if State then bssapi:Godmode(true) else bssapi:Godmode(false) end end)
@@ -739,7 +739,7 @@ local extras = extrtab:CreateSection("Extras")
 extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
 extras:CreateTextBox("Glider Speed", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Speed = Value setupvalue(st, st[1]'Glider', glidersTable) end)
 extras:CreateTextBox("Glider Float", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Float = Value setupvalue(st, st[1]'Glider', glidersTable) end)
-extras:CreateButton("Invisibility", function(State) sleepy.teleport(CFrame.new(0,0,0)) wait(1) if game.Players.LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game.Players.LocalPlayer.Character.LowerTorso.Root:Clone() game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game.Players.LocalPlayer.Character.LowerTorso sleepy.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
+extras:CreateButton("Invisibility", function(State) sleepy.teleport(CFrame.new(0,0,0)) wait(1) if game:GetService("Players").LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game:GetService("Players").LocalPlayer.Character.LowerTorso.Root:Clone() game:GetService("Players").LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game:GetService("Players").LocalPlayer.Character.LowerTorso sleepy.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
 extras:CreateToggle("Float", nil, function(State) temptable.float = State end)
 
 
@@ -830,8 +830,8 @@ end)
 task.spawn(function() while task.wait() do
     if sleepy.toggles.autofarm then
         temptable.magnitude = 70
-        if game.Players.LocalPlayer.Character:FindFirstChild("ProgressLabel",true) then
-        local pollenprglbl = game.Players.LocalPlayer.Character:FindFirstChild("ProgressLabel",true)
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("ProgressLabel",true) then
+        local pollenprglbl = game:GetService("Players").LocalPlayer.Character:FindFirstChild("ProgressLabel",true)
         maxpollen = tonumber(pollenprglbl.Text:match("%d+$"))
         local pollencount = game.Players.LocalPlayer.CoreStats.Pollen.Value
         pollenpercentage = pollencount/maxpollen*100
@@ -921,7 +921,7 @@ task.spawn(function() while task.wait() do
                         temptable.started.mondo = false
                     end
                 end
-                if (fieldposition-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > temptable.magnitude then
+                if (fieldposition-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > temptable.magnitude then
                     sleepy.tween(2, fieldpos)
                     task.wait(2)
                     if sleepy.toggles.autosprinkler then makesprinklers() end
@@ -1032,9 +1032,9 @@ task.spawn(function() while task.wait() do
 end end)
 
 task.spawn(function() while task.wait(0.001) do
-    if sleepy.toggles.traincrab then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
-    if sleepy.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, sleepy.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
-    if sleepy.toggles.autodig then workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer() if game.Players.LocalPlayer then if game.Players.LocalPlayer.Character then if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) then clickevent = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) or nil end end end if clickevent then clickevent:FireServer() end end end
+    if sleepy.toggles.traincrab then game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
+    if sleepy.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, sleepy.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
+    if sleepy.toggles.autodig then workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer() if game.Players.LocalPlayer then if game:GetService("Players").LocalPlayer.Character then if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") then if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) then clickevent = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("ClickEvent", true) or nil end end end if clickevent then clickevent:FireServer() end end end
 end end)
 
 game:GetService("Workspace").Particles.Folder2.ChildAdded:Connect(function(child)
@@ -1148,8 +1148,8 @@ end end)
 
 game:GetService('RunService').Heartbeat:connect(function() 
     if sleepy.toggles.autoquest then firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.NPC.ButtonOverlay.MouseButton1Click) end
-    if sleepy.toggles.loopspeed then game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.walkspeed end
-    if sleepy.toggles.loopjump then game.Players.LocalPlayer.Character.Humanoid.JumpPower = sleepy.vars.jumppower end
+    if sleepy.toggles.loopspeed then game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = sleepy.vars.walkspeed end
+    if sleepy.toggles.loopjump then game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = sleepy.vars.jumppower end
 end)
 
 game:GetService('RunService').Heartbeat:connect(function()
@@ -1157,7 +1157,7 @@ game:GetService('RunService').Heartbeat:connect(function()
 end)
 
 game:GetService('RunService').Heartbeat:connect(function() 
-    if temptable.float then game.Players.LocalPlayer.Character.Humanoid.BodyTypeScale.Value = 0 floatpad.CanCollide = true floatpad.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y-3.75, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z) task.wait(0)  else floatpad.CanCollide = false end
+    if temptable.float then game:GetService("Players").LocalPlayer.Character.Humanoid.BodyTypeScale.Value = 0 floatpad.CanCollide = true floatpad.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.X, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Y-3.75, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Z) task.wait(0)  else floatpad.CanCollide = false end
 end)
 
 local vu = game:GetService("VirtualUser")
@@ -1176,7 +1176,7 @@ task.spawn(function()while task.wait() do
     end
 end end)
 
-game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
     humanoid = char:WaitForChild("Humanoid")
     humanoid.Died:Connect(function()
         if sleepy.toggles.autofarm then
@@ -1202,9 +1202,9 @@ for _,v in next, game.workspace.Collectibles:GetChildren() do
 end 
 
 task.spawn(function() while task.wait() do
-    pos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    pos = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
     task.wait(0.00001)
-    currentSpeed = (pos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+    currentSpeed = (pos-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
     if currentSpeed > 0 then
         temptable.running = true
     else
