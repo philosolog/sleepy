@@ -33,6 +33,7 @@ local sleepy = {
             })
         end)
     end,
+    ["executorName"] = 
     ["isSynapse"] = function()
         if syn then
             return true
@@ -373,5 +374,7 @@ local sleepy = {
         loadstring(game:HttpGet(string))()
     end
 }
+
+-- hi
 
 return sleepy
