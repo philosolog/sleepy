@@ -18,3 +18,5 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/mai
 	- [ ] detailed field stats
 	- [ ] auto-field (highest possible gains)
 	- [ ] auto-ant
+- [🍈](https://www.roblox.com/games/2753915549)
+	- [ ] farming
