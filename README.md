@@ -1,4 +1,4 @@
-# 🌙 | [![Discord Shield](https://discordapp.com/api/guilds/999739236381118464/widget.png)](https://discord.gg/aVgrSFCHpu)
+# 🌙 - [![Discord Shield](https://discordapp.com/api/guilds/999739236381118464/widget.png)](https://discord.gg/aVgrSFCHpu)
 *afker hub lol*
 ### 🧵
 ```lua
