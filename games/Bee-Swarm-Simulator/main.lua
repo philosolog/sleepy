@@ -243,8 +243,7 @@ local sleepy = {
         autokillmobs = false,
         autoant = false,
         killwindy = false,
-        godmode = false,
-        fullbright = {}
+        godmode = false
     },
     vars = {
         field = "Mountain Top Field",
@@ -733,72 +732,6 @@ misco:CreateDropdown("Equip Masks", masktable, function(Option) local ohString1 
 misco:CreateDropdown("Equip Collectors", collectorstable, function(Option) local ohString1 = "Equip" local ohTable2 = { ["Mute"] = false, ["Type"] = Option, ["Category"] = "Collector" } game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(ohString1, ohTable2) end)
 misco:CreateDropdown("Generate Amulet", {"Supreme Star Amulet", "Diamond Star Amulet", "Gold Star Amulet","Silver Star Amulet","Bronze Star Amulet","Moon Amulet"}, function(Option) local A_1 = Option.." Generator" local Event = game:GetService("ReplicatedStorage").Events.ToyEvent Event:FireServer(A_1) end)
 misco:CreateButton("Export Stats Table", function() local StatCache = require(game.ReplicatedStorage.ClientStatCache)writefile("Stats_"..sleepyapi.nickname..".json", StatCache:Encode()) end)
-local miscv = misctab:CreateSection("Visuals")
-miscv:CreateToggle("fullbright", -- !: Move to a separate script.
-    function(State)
-        local lighting = game:GetService("Lighting")
-
-        if State then
-            lighting.ShadowSoftness = 0
-            lighting.GlobalShadows = false
-            lighting.Brightness = 2
-            lighting.ClockTime = 14
-            lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-            lighting.FogEnd = 10e6
-            sleepy.toggles.fullbright.timeEvent = lighting.GetPropertyChangedSignal("ClockTime"):Connect(function()
-                sleepy.toggles.fullbright.prevTime = lighting.Clocktime
-            end)
-        else
-            lighting.ClockTime = sleepy.toggles.fullbright.prevTime
-            _ = sleepy.toggles.fullbright.timeEvent and _:Disconnect()
-        end
-    end
-)
-miscv:CreateButton("boost performance", -- !: Move to a separate script.
-    function() -- ?: Compare effects.
-        sethiddenproperty(game:GetService("Lighting"), "Technology", Enum.Technology.Compatibility)
-        local function destroyIf(Parent, destroyPartTab, waitTime)
-            for i = 1, #destroyPartTab do
-                coroutine.wrap(function()
-                    local destroyPart = Parent:WaitForChild(destroyPartTab[i], waitTime or 0.5)
-                    if destroyPart then destroyPart:Destroy() return true end
-                end)()
-            end
-        end
-
-        local function performanceObj(obj)
-            task.wait()
-            --[makes localFx go crazy if enabled] if (obj:IsA("ParticleEmitter") or obj:IsA("Trail") or (obj:IsA("Fire")) and obj:FindFirstAncestor("Bees")) then obj:Destroy() end --bees bruh
-            if not obj:IsA("Part") and not obj:IsA("BasePart") then return end
-            obj.CastShadow = false
-            obj.CanTouch = false
-            --[this isnt worth it] obj.CanQuery = false
-            obj.Transparency = ((obj.Transparency > 0.25 or obj.Material == Enum.Material.ForceField) and 1) or 0
-            obj.Material = Enum.Material.SmoothPlastic
-            obj.Reflectance = 0
-            if obj.Parent == workspace:WaitForChild("Bees") then 
-                destroyIf(obj, {
-                    "TopTexture",
-                    "LeftTexture",
-                    "RightTexture",
-                    "BottomTexture",
-                    "Mohawk"
-                    --"Wings", destroying these causes them to anchor
-                    --"Wings_Weld",
-                })
-                local particles = obj:FindFirstChildOfClass("ParticleEmitter") 
-                if particles then
-                    particles:Destroy() particles = nil
-                end
-            elseif obj.Parent ~= workspace:WaitForChild("Collectibles") then return
-
-            end
-            tokens(obj)
-        end
-        workspace.DescendantAdded:Connect(performanceObj)
-        for _, v in pairs(workspace:GetDescendants()) do performanceObj(v) end
-    end
-)
 
 local extras = extrtab:CreateSection("Extras")
 extras:CreateButton("hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
