@@ -1,4 +1,4 @@
-local new_name = "Me" 
+local new_name = ":)" -- TODO: Append randomly generated names. 
 local new_id = 1 -- Set other ^_^
 local clear_avatar = false -- So no one can reverse search by your outfit
 local flush_body_colors = true -- So no one can reverse search by your bodycolors

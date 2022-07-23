@@ -243,7 +243,7 @@ local sleepy = {
         autokillmobs = false,
         autoant = false,
         killwindy = false,
-        godmode = false
+        godmode = false,
     },
     vars = {
         field = "Mountain Top Field",
@@ -648,11 +648,11 @@ end
 local Config = { WindowName = "🌙 sleepy | v"..temptable.version, Color = Color3.fromRGB(255, 184, 65), Keybind = Enum.KeyCode.Semicolon}
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
-local hometab = Window:CreateTab("Home")
-local farmtab = Window:CreateTab("Farming")
-local combtab = Window:CreateTab("Combat")
-local wayptab = Window:CreateTab("Waypoints")
-local misctab = Window:CreateTab("Misc")
+local hometab = Window:CreateTab("home")
+local farmtab = Window:CreateTab("farming")
+local combtab = Window:CreateTab("combat")
+local wayptab = Window:CreateTab("waypoints")
+local misctab = Window:CreateTab("miscellaneous")
 local extrtab = Window:CreateTab("Extra")
 local setttab = Window:CreateTab("Settings")
 local information = hometab:CreateSection("Information")
@@ -732,15 +732,13 @@ misco:CreateDropdown("Equip Masks", masktable, function(Option) local ohString1 
 misco:CreateDropdown("Equip Collectors", collectorstable, function(Option) local ohString1 = "Equip" local ohTable2 = { ["Mute"] = false, ["Type"] = Option, ["Category"] = "Collector" } game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(ohString1, ohTable2) end)
 misco:CreateDropdown("Generate Amulet", {"Supreme Star Amulet", "Diamond Star Amulet", "Gold Star Amulet","Silver Star Amulet","Bronze Star Amulet","Moon Amulet"}, function(Option) local A_1 = Option.." Generator" local Event = game:GetService("ReplicatedStorage").Events.ToyEvent Event:FireServer(A_1) end)
 misco:CreateButton("Export Stats Table", function() local StatCache = require(game.ReplicatedStorage.ClientStatCache)writefile("Stats_"..sleepyapi.nickname..".json", StatCache:Encode()) end)
-local miscv = misctab:CreateSection("Visuals")
-miscv:CreateButton("Toggle Fullbright")
 
 local extras = extrtab:CreateSection("Extras")
-extras:CreateButton("Hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
-extras:CreateTextBox("Glider Speed", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Speed = Value setupvalue(st, st[1]'Glider', glidersTable) end)
-extras:CreateTextBox("Glider Float", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Float = Value setupvalue(st, st[1]'Glider', glidersTable) end)
-extras:CreateButton("Invisibility", function(State) sleepyapi.teleport(CFrame.new(0,0,0)) wait(1) if game.Players.LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game.Players.LocalPlayer.Character.LowerTorso.Root:Clone() game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game.Players.LocalPlayer.Character.LowerTorso sleepyapi.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
-extras:CreateToggle("Float", nil, function(State) temptable.float = State end)
+extras:CreateButton("hide nickname", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/philosolog/sleepy/main/utilities/hidenickname.lua"))()end)
+extras:CreateTextBox("glider speed", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Speed = Value setupvalue(st, st[1]'Glider', glidersTable) end)
+extras:CreateTextBox("glider float", "", true, function(Value) local StatCache = require(game.ReplicatedStorage.ClientStatCache) local stats = StatCache:Get() stats.EquippedParachute = "Glider" local module = require(game:GetService("ReplicatedStorage").Parachutes) local st = module.GetStat local glidersTable = getupvalues(st) glidersTable[1]["Glider"].Float = Value setupvalue(st, st[1]'Glider', glidersTable) end)
+extras:CreateButton("invisibility", function(State) sleepyapi.teleport(CFrame.new(0,0,0)) wait(1) if game.Players.LocalPlayer.Character:FindFirstChild('LowerTorso') then Root = game.Players.LocalPlayer.Character.LowerTorso.Root:Clone() game.Players.LocalPlayer.Character.LowerTorso.Root:Destroy() Root.Parent = game.Players.LocalPlayer.Character.LowerTorso sleepyapi.teleport(game:GetService("Players").LocalPlayer.SpawnPos.Value) end end)
+extras:CreateToggle("float", nil, function(State) temptable.float = State end)
 
 
 local farmsettings = setttab:CreateSection("Autofarm Settings")
