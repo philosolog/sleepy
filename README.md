@@ -2,13 +2,13 @@
 *an afk hub for overnight gains*
 ### 🧵
 ```lua
-loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy/main/loader.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/philosolog/sleepy-pbe/main/loader.lua'))()
 ```
 ### 🎮
 - [🐝 Bee Swarm Simulator](https://www.roblox.com/games/1537690962)
 
 ### 📝
-- [🌙](https://github.com/philosolog/sleepy)
+- [🌙](https://github.com/philosolog/sleepy-pbe)
 	- [ ] discord-to-roblox script control
     - [ ] rejoin
     - [ ] server hop

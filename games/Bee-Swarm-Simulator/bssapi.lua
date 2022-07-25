@@ -18,7 +18,7 @@ function bsslib:GetCooldown(mob)
             return true
         end
     end
-    return nil -- nil loool
+    return nil
 end
 
 function bsslib:Godmode(boolean)
