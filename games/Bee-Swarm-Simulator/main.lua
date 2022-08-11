@@ -546,7 +546,8 @@ function getfuzzy()
         for i,v in next, game.workspace.Particles:GetChildren() do
             if v.Name == "DustBunnyInstance" and temptable.running == false and tonumber((v.Plane.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude) < temptable.magnitude/1.4 then
                 if v:FindFirstChild("Plane") then
-                    farm(v:FindFirstChild("Plane"))
+					farm(v:FindFirstChild("Plane"))
+					
                     break
                 end
             end
